@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="groupea07Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="auctioned_object">
+          <Key>
+            <PropertyRef Name="idObject" />
+          </Key>
+          <Property Name="idObject" Type="int" Nullable="false" />
+          <Property Name="nameObject" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="descriptionObject" Type="varchar" MaxLength="250" />
+          <Property Name="priceObject" Type="int" Nullable="false" />
+          <Property Name="sellingDate" Type="datetime" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="catObject" Type="char" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="emailUser" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="username" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="userPwd" Type="char" MaxLength="25" Nullable="false" />
+          <Property Name="userAdmin" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="moderator">
+          <Key>
+            <PropertyRef Name="idModerator" />
+          </Key>
+          <Property Name="idModerator" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="seller_user">
+          <Key>
+            <PropertyRef Name="idSeller" />
+          </Key>
+          <Property Name="idSeller" Type="int" Nullable="false" />
+          <Property Name="username" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="nbSales" Type="int" />
+          <Property Name="positiveVote" Type="int" />
+          <Property Name="negativeVote" Type="int" />
+        </EntityType>
+        <EntityType Name="sold_object">
+          <Key>
+            <PropertyRef Name="idObject" />
+          </Key>
+          <Property Name="idObject" Type="int" Nullable="false" />
+          <Property Name="finalPrice" Type="int" />
+          <Property Name="nameObject" Type="int" />
+          <Property Name="catObject" Type="char" MaxLength="40" />
+        </EntityType>
+        <EntityContainer Name="groupea07Model1StoreContainer">
+          <EntitySet Name="auctioned_object" EntityType="Self.auctioned_object" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member" EntityType="Self.member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="moderator" EntityType="Self.moderator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="seller_user" EntityType="Self.seller_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sold_object" EntityType="Self.sold_object" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="groupea07Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="auctioned_object">
+          <Key>
+            <PropertyRef Name="idObject" />
+          </Key>
+          <Property Name="idObject" Type="Int32" Nullable="false" />
+          <Property Name="nameObject" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descriptionObject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="priceObject" Type="Int32" Nullable="false" />
+          <Property Name="sellingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="catObject" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="emailUser" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="userPwd" Type="String" MaxLength="25" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="userAdmin" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="moderator">
+          <Key>
+            <PropertyRef Name="idModerator" />
+          </Key>
+          <Property Name="idModerator" Type="Int32" Nullable="false" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="seller_user">
+          <Key>
+            <PropertyRef Name="idSeller" />
+          </Key>
+          <Property Name="idSeller" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="nbSales" Type="Int32" />
+          <Property Name="positiveVote" Type="Int32" />
+          <Property Name="negativeVote" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sold_object">
+          <Key>
+            <PropertyRef Name="idObject" />
+          </Key>
+          <Property Name="idObject" Type="Int32" Nullable="false" />
+          <Property Name="finalPrice" Type="Int32" />
+          <Property Name="nameObject" Type="Int32" />
+          <Property Name="catObject" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="bddEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="auctioned_object" EntityType="Self.auctioned_object" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="member" EntityType="Self.member" />
+          <EntitySet Name="moderator" EntityType="Self.moderator" />
+          <EntitySet Name="seller_user" EntityType="Self.seller_user" />
+          <EntitySet Name="sold_object" EntityType="Self.sold_object" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="groupea07Model1StoreContainer" CdmEntityContainer="bddEntities">
+          <EntitySetMapping Name="auctioned_object">
+            <EntityTypeMapping TypeName="groupea07Model1.auctioned_object">
+              <MappingFragment StoreEntitySet="auctioned_object">
+                <ScalarProperty Name="idObject" ColumnName="idObject" />
+                <ScalarProperty Name="nameObject" ColumnName="nameObject" />
+                <ScalarProperty Name="descriptionObject" ColumnName="descriptionObject" />
+                <ScalarProperty Name="priceObject" ColumnName="priceObject" />
+                <ScalarProperty Name="sellingDate" ColumnName="sellingDate" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="catObject" ColumnName="catObject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="groupea07Model1.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="member">
+            <EntityTypeMapping TypeName="groupea07Model1.member">
+              <MappingFragment StoreEntitySet="member">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="emailUser" ColumnName="emailUser" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userPwd" ColumnName="userPwd" />
+                <ScalarProperty Name="userAdmin" ColumnName="userAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="moderator">
+            <EntityTypeMapping TypeName="groupea07Model1.moderator">
+              <MappingFragment StoreEntitySet="moderator">
+                <ScalarProperty Name="idModerator" ColumnName="idModerator" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="seller_user">
+            <EntityTypeMapping TypeName="groupea07Model1.seller_user">
+              <MappingFragment StoreEntitySet="seller_user">
+                <ScalarProperty Name="idSeller" ColumnName="idSeller" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="nbSales" ColumnName="nbSales" />
+                <ScalarProperty Name="positiveVote" ColumnName="positiveVote" />
+                <ScalarProperty Name="negativeVote" ColumnName="negativeVote" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sold_object">
+            <EntityTypeMapping TypeName="groupea07Model1.sold_object">
+              <MappingFragment StoreEntitySet="sold_object">
+                <ScalarProperty Name="idObject" ColumnName="idObject" />
+                <ScalarProperty Name="finalPrice" ColumnName="finalPrice" />
+                <ScalarProperty Name="nameObject" ColumnName="nameObject" />
+                <ScalarProperty Name="catObject" ColumnName="catObject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

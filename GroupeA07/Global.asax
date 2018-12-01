@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="GroupeA07.WebApiApplication" Language="C#" %>
