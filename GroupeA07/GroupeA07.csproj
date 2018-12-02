@@ -196,13 +196,16 @@
     <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Controllers\Seller_userController.cs" />
     <Compile Include="Controllers\Sold_objectController.cs" />
+    <Compile Include="DAO\Auctioned_ObjectDAO.cs" />
     <Compile Include="DAO\MemberDAO.cs" />
+    <Compile Include="DAO\ModeratorDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Auctioned_object.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Constructors\Auctioned_ObjectConst.cs" />
     <Compile Include="Models\Bdd.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -218,6 +221,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Bdd.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Constructors\ModeratorConst.cs" />
     <Compile Include="Models\DataBase.cs" />
     <Compile Include="Models\Employee.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
@@ -225,6 +229,7 @@
     <Compile Include="Models\Member.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Constructors\MemberConst.cs" />
     <Compile Include="Models\Moderator.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>

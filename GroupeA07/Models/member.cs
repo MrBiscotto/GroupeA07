@@ -14,7 +14,7 @@ namespace GroupeA07.Models
     using System.Collections.Generic;
 	using System.Data.SqlClient;
 
-	public class Member
+	public partial class Member
     {
         public int idUser { get; set; }
         public string emailUser { get; set; }
@@ -22,17 +22,6 @@ namespace GroupeA07.Models
         public string userPwd { get; set; }
         public byte userAdmin { get; set; }
 
-		public Member() { }
-
-		public Member(SqlDataReader reader)
-		{
-			idUser = Int32.Parse(reader[MemberDAO.COLUMN_ID_USER].ToString());
-			emailUser = reader[MemberDAO.COLUMN_EMAIL_USER].ToString();
-			username = reader[MemberDAO.COLUMN_USER_NAME].ToString();
-			userPwd = reader[MemberDAO.COLUMN_USER_PWD].ToString();
-
-			userAdmin = Byte.Parse(reader[MemberDAO.COLUMN_USER_ADMIN].ToString());
-		}
 	}
 
 

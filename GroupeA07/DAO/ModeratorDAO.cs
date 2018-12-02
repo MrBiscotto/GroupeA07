@@ -7,43 +7,33 @@ using System.Web;
 
 namespace GroupeA07.DAO
 {
-	public class MemberDAO
+	public class ModeratorDAO
 	{
-
-		public static readonly string TABLE_NAME = "Member";
-		public static readonly string COLUMN_ID_USER = "IdUser";
-		public static readonly string COLUMN_EMAIL_USER = "EmailUser";
-		public static readonly string COLUMN_USER_NAME = "UserName";
-		public static readonly string COLUMN_USER_PWD = "UserPwd";
-		public static readonly string COLUMN_USER_ADMIN = "UserAdmin";
+		public static readonly string TABLE_NAME = "Auctioned_Object";
+		public static readonly string COLUMN_ID_MODERATOR = "idModerator";
+		public static readonly string COLUMN_ID_USER = "idUser";
+		
 
 		public static readonly string QUERY = "Select * from " + TABLE_NAME;
-		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idObject";
+		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idModerator";
 
 		public static readonly string INSERT = "Insert into" + TABLE_NAME +
-			"(" + COLUMN_EMAIL_USER +
-			", " + COLUMN_EMAIL_USER +
-			", " + COLUMN_USER_NAME +
-			", " + COLUMN_USER_PWD +
-			", " + COLUMN_USER_ADMIN + ")"
-			+ "output inserted.id values(@EmailUser,0)";
+			"(" + COLUMN_ID_USER + ")"
+			+ "output inserted.id values(@idUser,0)";
 
 		public static readonly string UPDATE = "update" + TABLE_NAME + " set " +
-			COLUMN_EMAIL_USER + " =@emailUser"
-			+ ", " + COLUMN_USER_NAME + " =@username"
-			+ ", " + COLUMN_USER_PWD + "=@userPwd"
-			+ ", " + COLUMN_USER_ADMIN + "=@userAdmin";
+			COLUMN_ID_USER + " =@isUser";
 
 
 
 		public static readonly string DELETE = "delete from " + TABLE_NAME
-			+ " where " + COLUMN_ID_USER + " =@idUser";
+			+ " where " + COLUMN_ID_MODERATOR + " =@isModerator";
 
 
-		//Renvoie liste des membres
-		public static List<Member> Query()
+		//Renvoie liste des Objects
+		public static List<Moderator> Query()
 		{
-			List<Member> todos = new List<Member>();
+			List<Moderator> objects = new List<Moderator>();
 
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
@@ -53,47 +43,46 @@ namespace GroupeA07.DAO
 
 				while (reader.Read())
 				{
-					todos.Add(new Member(reader));
+					objects.Add(new Moderator(reader));
 				}
 			}
-			return todos;
+			return objects;
 		}
 
 		//Renvoie un membre selon son id
-		public static Member get(int id)
+		public static Moderator get(int id)
 		{
-			Member m = null;
+			Moderator m = null;
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
 				SqlCommand command = new SqlCommand(GET, connection);
-				command.Parameters.AddWithValue("@idUser", id);
+				command.Parameters.AddWithValue("@idModerator", id);
 				SqlDataReader reader = command.ExecuteReader();
 				if (reader.Read())
 				{
-					m = new Member(reader);
+					m = new Moderator(reader);
 				}
 			}
 			return m;
 		}
 
 		//Ajout d'un membre
-		public static Member Insert(Member m)
+		public static Moderator Insert(Moderator todo)
 		{
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
 				SqlCommand command = new SqlCommand(INSERT, connection);
 
-				command.Parameters.AddWithValue("@emailUser", m.emailUser);
+				command.Parameters.AddWithValue("@idUser", todo.idUser);
 
 				int id = Int32.Parse(command.ExecuteScalar().ToString());
-				m.idUser = id;
+				todo.idModerator = id;
 			}
-			return m;
+			return todo;
 		}
 
-		//Suppresion d'un membre
 		public static bool Delete(int id)
 		{
 
@@ -103,15 +92,14 @@ namespace GroupeA07.DAO
 				connection.Open();
 				SqlCommand command = new SqlCommand(INSERT, connection);
 
-				command.Parameters.AddWithValue("@idUser", id);
+				command.Parameters.AddWithValue("@idModerator", id);
 
 				state = command.ExecuteNonQuery() != 0;
 			}
 			return state;
 		}
 
-		//Update d'un membre
-		public static bool Update(Member m)
+		public static bool Update(Moderator todo)
 		{
 			bool state = false;
 			using (SqlConnection connection = DataBase.GetConnection())
@@ -119,13 +107,8 @@ namespace GroupeA07.DAO
 				connection.Open();
 				SqlCommand command = new SqlCommand(UPDATE, connection);
 
-				command.Parameters.AddWithValue("@idUser", m.idUser);
-				command.Parameters.AddWithValue("@emailUser", m.emailUser);
-				command.Parameters.AddWithValue("@username", m.username);
-				command.Parameters.AddWithValue("@userPwd", m.userPwd);
-				command.Parameters.AddWithValue("@userAdmin", m.userAdmin);
-
-
+				command.Parameters.AddWithValue("@idModerator", todo.idModerator);
+				command.Parameters.AddWithValue("@idUser", todo.idUser);
 				state = command.ExecuteNonQuery() != 0;
 			}
 			return state;

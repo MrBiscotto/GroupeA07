@@ -1,4 +1,5 @@
-﻿using GroupeA07.Models;
+﻿using GroupeA07.DAO;
+using GroupeA07.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,88 +15,38 @@ namespace GroupeA07.Controllers
 {
     public class Auctioned_ObjectController : ApiController
     {
-		private bddEntities db = new bddEntities();
-		 
-		public IQueryable<Auctioned_object> GetAuctioned_Object()
+		public List<Auctioned_object> GetAll()
 		{
-			return db.Auctioned_object;
-
-		}  
-
-		public HttpResponseMessage PutAuctioned_Object(Auctioned_object ao)
-		{
-			if (!ModelState.IsValid)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-			}
-
-
-			db.Entry(ao).State = EntityState.Modified;
-
-			try
-			{
-				db.SaveChanges();
-			}
-			catch (DbUpdateConcurrencyException ex)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-			}
-
-			return Request.CreateResponse(HttpStatusCode.OK);
-		}
- 
-
-		public HttpResponseMessage PostAuctioned_Object(Auctioned_object ao)
-		{
-			if (!ModelState.IsValid)
-			{
-				db.Auctioned_object.Add(ao);
-				db.SaveChanges();
-				HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, ao);
-				response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = ao.idObject }));
-				return response;
-			}
-			else
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-			}
-
-		}
-		
-
-		public HttpResponseMessage DeleteAuctioned_Object(Auctioned_object ao)
-		{
-			Auctioned_object remove_ao = db.Auctioned_object.Find(ao.idObject);
-			if (remove_ao == null)
-			{
-				return Request.CreateResponse(HttpStatusCode.NotFound);
-			}
-
-			db.Auctioned_object.Remove(remove_ao);
-			try
-			{
-				db.SaveChanges();
-			}
-			catch (DbUpdateConcurrencyException ex)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-			}
-
-			return Request.CreateResponse(HttpStatusCode.OK);
+			return Auctioned_ObjectDAO.Query();
 		}
 
-		protected override void Dispose(bool disposing)
+		public Auctioned_object Post(Auctioned_object todo)
 		{
-			if (disposing)
-			{
-				db.Dispose();
-			}
-			base.Dispose(disposing);
+			return Auctioned_ObjectDAO.Insert(todo);
 		}
 
-		private bool Auctioned_ObjectExists(int id)
+		public Auctioned_object Get(int id)
 		{
-			return db.Auctioned_object.Count(e => e.idObject == id) > 0;
+			return Auctioned_ObjectDAO.get(id);
+		}
+
+		public IHttpActionResult Delete(int id)
+		{
+			if (Auctioned_ObjectDAO.Delete(id))
+			{
+				return Ok();
+			}
+
+			return BadRequest();
+		}
+
+		public IHttpActionResult Put(Auctioned_object todo)
+		{
+			if (Auctioned_ObjectDAO.Update(todo))
+			{
+				return Ok();
+			}
+			return BadRequest();
 		}
 	}
 }
