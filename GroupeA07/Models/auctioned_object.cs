@@ -12,7 +12,7 @@ namespace GroupeA07.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class auctioned_object
+    public partial class Auctioned_object
     {
         public int idObject { get; set; }
         public string nameObject { get; set; }

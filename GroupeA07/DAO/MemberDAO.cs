@@ -41,9 +41,9 @@ namespace GroupeA07.DAO
 
 
 		//Renvoie liste des membres
-		public static List<member> Query()
+		public static List<Member> Query()
 		{
-			List<member> todos = new List<member>();
+			List<Member> todos = new List<Member>();
 
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
@@ -53,16 +53,16 @@ namespace GroupeA07.DAO
 
 				while (reader.Read())
 				{
-					todos.Add(new member(reader));
+					todos.Add(new Member(reader));
 				}
 			}
 			return todos;
 		}
 
 		//Renvoie un membre selon son id
-		public static member get(int id)
+		public static Member get(int id)
 		{
-			member m = null;
+			Member m = null;
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
@@ -71,14 +71,14 @@ namespace GroupeA07.DAO
 				SqlDataReader reader = command.ExecuteReader();
 				if (reader.Read())
 				{
-					m = new member(reader);
+					m = new Member(reader);
 				}
 			}
 			return m;
 		}
 
 		//Ajout d'un membre
-		public static member Insert(member m)
+		public static Member Insert(Member m)
 		{
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
@@ -111,7 +111,7 @@ namespace GroupeA07.DAO
 		}
 
 		//Update d'un membre
-		public static bool Update(member m)
+		public static bool Update(Member m)
 		{
 			bool state = false;
 			using (SqlConnection connection = DataBase.GetConnection())

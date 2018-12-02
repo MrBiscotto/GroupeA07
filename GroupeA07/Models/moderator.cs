@@ -12,7 +12,7 @@ namespace GroupeA07.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class moderator
+    public partial class Moderator
     {
         public int idModerator { get; set; }
         public int idUser { get; set; }

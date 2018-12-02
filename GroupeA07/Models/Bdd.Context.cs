@@ -25,11 +25,11 @@ namespace GroupeA07.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<auctioned_object> auctioned_object { get; set; }
+        public virtual DbSet<Auctioned_object> Auctioned_object { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<member> member { get; set; }
-        public virtual DbSet<moderator> moderator { get; set; }
-        public virtual DbSet<seller_user> seller_user { get; set; }
-        public virtual DbSet<sold_object> sold_object { get; set; }
+        public virtual DbSet<Member> Member { get; set; }
+        public virtual DbSet<Moderator> Moderator { get; set; }
+        public virtual DbSet<Seller_user> Seller_user { get; set; }
+        public virtual DbSet<Sold_object> Sold_object { get; set; }
     }
 }

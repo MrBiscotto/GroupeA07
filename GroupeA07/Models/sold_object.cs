@@ -12,11 +12,11 @@ namespace GroupeA07.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sold_object
+    public partial class Sold_object
     {
         public int idObject { get; set; }
         public Nullable<int> finalPrice { get; set; }
-        public Nullable<int> nameObject { get; set; }
+        public string nameObject { get; set; }
         public string catObject { get; set; }
     }
 }

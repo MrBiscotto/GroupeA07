@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="groupea07Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="auctioned_object">
+      <Schema Namespace="groupea07Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Auctioned_object">
           <Key>
             <PropertyRef Name="idObject" />
           </Key>
@@ -25,7 +25,7 @@
           <Property Name="FirstName" Type="varchar" MaxLength="20" />
           <Property Name="LastName" Type="varchar" MaxLength="20" />
         </EntityType>
-        <EntityType Name="member">
+        <EntityType Name="Member">
           <Key>
             <PropertyRef Name="idUser" />
           </Key>
@@ -35,14 +35,14 @@
           <Property Name="userPwd" Type="char" MaxLength="25" Nullable="false" />
           <Property Name="userAdmin" Type="tinyint" Nullable="false" />
         </EntityType>
-        <EntityType Name="moderator">
+        <EntityType Name="Moderator">
           <Key>
             <PropertyRef Name="idModerator" />
           </Key>
           <Property Name="idModerator" Type="int" Nullable="false" />
           <Property Name="idUser" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="seller_user">
+        <EntityType Name="Seller_user">
           <Key>
             <PropertyRef Name="idSeller" />
           </Key>
@@ -52,29 +52,29 @@
           <Property Name="positiveVote" Type="int" />
           <Property Name="negativeVote" Type="int" />
         </EntityType>
-        <EntityType Name="sold_object">
+        <EntityType Name="Sold_object">
           <Key>
             <PropertyRef Name="idObject" />
           </Key>
           <Property Name="idObject" Type="int" Nullable="false" />
           <Property Name="finalPrice" Type="int" />
-          <Property Name="nameObject" Type="int" />
+          <Property Name="nameObject" Type="varchar" MaxLength="55" />
           <Property Name="catObject" Type="char" MaxLength="40" />
         </EntityType>
-        <EntityContainer Name="groupea07Model1StoreContainer">
-          <EntitySet Name="auctioned_object" EntityType="Self.auctioned_object" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="groupea07ModelStoreContainer">
+          <EntitySet Name="Auctioned_object" EntityType="Self.Auctioned_object" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="member" EntityType="Self.member" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="moderator" EntityType="Self.moderator" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="seller_user" EntityType="Self.seller_user" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sold_object" EntityType="Self.sold_object" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Moderator" EntityType="Self.Moderator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller_user" EntityType="Self.Seller_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sold_object" EntityType="Self.Sold_object" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="groupea07Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="auctioned_object">
+      <Schema Namespace="groupea07Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Auctioned_object">
           <Key>
             <PropertyRef Name="idObject" />
           </Key>
@@ -94,7 +94,7 @@
           <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="member">
+        <EntityType Name="Member">
           <Key>
             <PropertyRef Name="idUser" />
           </Key>
@@ -104,14 +104,14 @@
           <Property Name="userPwd" Type="String" MaxLength="25" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="userAdmin" Type="Byte" Nullable="false" />
         </EntityType>
-        <EntityType Name="moderator">
+        <EntityType Name="Moderator">
           <Key>
             <PropertyRef Name="idModerator" />
           </Key>
           <Property Name="idModerator" Type="Int32" Nullable="false" />
           <Property Name="idUser" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="seller_user">
+        <EntityType Name="Seller_user">
           <Key>
             <PropertyRef Name="idSeller" />
           </Key>
@@ -121,32 +121,32 @@
           <Property Name="positiveVote" Type="Int32" />
           <Property Name="negativeVote" Type="Int32" />
         </EntityType>
-        <EntityType Name="sold_object">
+        <EntityType Name="Sold_object">
           <Key>
             <PropertyRef Name="idObject" />
           </Key>
           <Property Name="idObject" Type="Int32" Nullable="false" />
           <Property Name="finalPrice" Type="Int32" />
-          <Property Name="nameObject" Type="Int32" />
+          <Property Name="nameObject" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
           <Property Name="catObject" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityContainer Name="bddEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="auctioned_object" EntityType="Self.auctioned_object" />
+          <EntitySet Name="Auctioned_object" EntityType="Self.Auctioned_object" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="member" EntityType="Self.member" />
-          <EntitySet Name="moderator" EntityType="Self.moderator" />
-          <EntitySet Name="seller_user" EntityType="Self.seller_user" />
-          <EntitySet Name="sold_object" EntityType="Self.sold_object" />
+          <EntitySet Name="Member" EntityType="Self.Member" />
+          <EntitySet Name="Moderator" EntityType="Self.Moderator" />
+          <EntitySet Name="Seller_user" EntityType="Self.Seller_user" />
+          <EntitySet Name="Sold_object" EntityType="Self.Sold_object" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="groupea07Model1StoreContainer" CdmEntityContainer="bddEntities">
-          <EntitySetMapping Name="auctioned_object">
-            <EntityTypeMapping TypeName="groupea07Model1.auctioned_object">
-              <MappingFragment StoreEntitySet="auctioned_object">
+        <EntityContainerMapping StorageEntityContainer="groupea07ModelStoreContainer" CdmEntityContainer="bddEntities">
+          <EntitySetMapping Name="Auctioned_object">
+            <EntityTypeMapping TypeName="groupea07Model.Auctioned_object">
+              <MappingFragment StoreEntitySet="Auctioned_object">
                 <ScalarProperty Name="idObject" ColumnName="idObject" />
                 <ScalarProperty Name="nameObject" ColumnName="nameObject" />
                 <ScalarProperty Name="descriptionObject" ColumnName="descriptionObject" />
@@ -158,7 +158,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee">
-            <EntityTypeMapping TypeName="groupea07Model1.Employee">
+            <EntityTypeMapping TypeName="groupea07Model.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -166,9 +166,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="member">
-            <EntityTypeMapping TypeName="groupea07Model1.member">
-              <MappingFragment StoreEntitySet="member">
+          <EntitySetMapping Name="Member">
+            <EntityTypeMapping TypeName="groupea07Model.Member">
+              <MappingFragment StoreEntitySet="Member">
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="emailUser" ColumnName="emailUser" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -177,17 +177,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="moderator">
-            <EntityTypeMapping TypeName="groupea07Model1.moderator">
-              <MappingFragment StoreEntitySet="moderator">
+          <EntitySetMapping Name="Moderator">
+            <EntityTypeMapping TypeName="groupea07Model.Moderator">
+              <MappingFragment StoreEntitySet="Moderator">
                 <ScalarProperty Name="idModerator" ColumnName="idModerator" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="seller_user">
-            <EntityTypeMapping TypeName="groupea07Model1.seller_user">
-              <MappingFragment StoreEntitySet="seller_user">
+          <EntitySetMapping Name="Seller_user">
+            <EntityTypeMapping TypeName="groupea07Model.Seller_user">
+              <MappingFragment StoreEntitySet="Seller_user">
                 <ScalarProperty Name="idSeller" ColumnName="idSeller" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="nbSales" ColumnName="nbSales" />
@@ -196,9 +196,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sold_object">
-            <EntityTypeMapping TypeName="groupea07Model1.sold_object">
-              <MappingFragment StoreEntitySet="sold_object">
+          <EntitySetMapping Name="Sold_object">
+            <EntityTypeMapping TypeName="groupea07Model.Sold_object">
+              <MappingFragment StoreEntitySet="Sold_object">
                 <ScalarProperty Name="idObject" ColumnName="idObject" />
                 <ScalarProperty Name="finalPrice" ColumnName="finalPrice" />
                 <ScalarProperty Name="nameObject" ColumnName="nameObject" />

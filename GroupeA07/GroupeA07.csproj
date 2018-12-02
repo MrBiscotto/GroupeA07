@@ -189,14 +189,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Auctioned_ObjectController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\ModeratorController.cs" />
+    <Compile Include="Controllers\Seller_userController.cs" />
+    <Compile Include="Controllers\Sold_objectController.cs" />
     <Compile Include="DAO\MemberDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\auctioned_object.cs">
+    <Compile Include="Models\Auctioned_object.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bdd.Context.cs">
@@ -218,16 +222,16 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\member.cs">
+    <Compile Include="Models\Member.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\moderator.cs">
+    <Compile Include="Models\Moderator.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\seller_user.cs">
+    <Compile Include="Models\Seller_user.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sold_object.cs">
+    <Compile Include="Models\Sold_object.cs">
       <DependentUpon>Bdd.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,6 +267,15 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EntityDeploy Include="Models\Bdd.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Bdd.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Bdd.edmx.diagram">
+      <DependentUpon>Bdd.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\GroupeA07 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\GroupeA0720181128120130 - Web Deploy.pubxml" />
     <Content Include="Models\Bdd.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Bdd.edmx</DependentUpon>
@@ -273,15 +286,6 @@
       <DependentUpon>Bdd.edmx</DependentUpon>
       <LastGenOutput>Bdd.cs</LastGenOutput>
     </Content>
-    <EntityDeploy Include="Models\Bdd.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Bdd.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Bdd.edmx.diagram">
-      <DependentUpon>Bdd.edmx</DependentUpon>
-    </Content>
-    <None Include="Properties\PublishProfiles\GroupeA07 - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\GroupeA0720181128120130 - Web Deploy.pubxml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -300,6 +304,10 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\AuctionedObject\" />
+    <Folder Include="Views\Moderator\" />
+    <Folder Include="Views\Seller_user\" />
+    <Folder Include="Views\Sold_object\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

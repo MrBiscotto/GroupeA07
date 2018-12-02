@@ -9,29 +9,31 @@
 
 namespace GroupeA07.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.SqlClient;
 	using GroupeA07.DAO;
+	using System;
+    using System.Collections.Generic;
+	using System.Data.SqlClient;
 
-	public class member
+	public class Member
     {
-
         public int idUser { get; set; }
         public string emailUser { get; set; }
         public string username { get; set; }
         public string userPwd { get; set; }
-        public bool userAdmin { get; set; }
+        public byte userAdmin { get; set; }
 
-        public member() { }
+		public Member() { }
 
-        public member(SqlDataReader reader)
-        {
-            idUser = Int32.Parse(reader[MemberDAO.COLUMN_ID_USER].ToString());
+		public Member(SqlDataReader reader)
+		{
+			idUser = Int32.Parse(reader[MemberDAO.COLUMN_ID_USER].ToString());
 			emailUser = reader[MemberDAO.COLUMN_EMAIL_USER].ToString();
 			username = reader[MemberDAO.COLUMN_USER_NAME].ToString();
 			userPwd = reader[MemberDAO.COLUMN_USER_PWD].ToString();
-            userAdmin = Boolean.Parse(reader[MemberDAO.COLUMN_USER_ADMIN].ToString());
-        }
-    }
+
+			userAdmin = Byte.Parse(reader[MemberDAO.COLUMN_USER_ADMIN].ToString());
+		}
+	}
+
+
 }

@@ -12,7 +12,7 @@ namespace GroupeA07.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class seller_user
+    public partial class Seller_user
     {
         public int idSeller { get; set; }
         public string username { get; set; }
