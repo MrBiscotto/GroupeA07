@@ -197,6 +197,8 @@
     <Compile Include="DAO\Auctioned_ObjectDAO.cs" />
     <Compile Include="DAO\MemberDAO.cs" />
     <Compile Include="DAO\ModeratorDAO.cs" />
+    <Compile Include="DAO\Seller_userDAO.cs" />
+    <Compile Include="DAO\Sold_objectDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -220,6 +222,8 @@
       <DependentUpon>Bdd.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Constructors\ModeratorConst.cs" />
+    <Compile Include="Models\Constructors\Seller_userConst.cs" />
+    <Compile Include="Models\Constructors\Sold_objectConst.cs" />
     <Compile Include="Models\DataBase.cs" />
     <Compile Include="Models\Employee.cs">
       <DependentUpon>Bdd.tt</DependentUpon>

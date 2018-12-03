@@ -7,33 +7,38 @@ using System.Web;
 
 namespace GroupeA07.DAO
 {
-	public class ModeratorDAO
+	public class Sold_objectDAO
 	{
-		public static readonly string TABLE_NAME = "Auctioned_Object";
-		public static readonly string COLUMN_ID_MODERATOR = "idModerator";
-		public static readonly string COLUMN_ID_USER = "idUser";
-		
+		public static readonly string TABLE_NAME = "Sold_object";
+		public static readonly string COLUMN_ID_OBJECT = "idObject";
+		public static readonly string COLUMN_FINAL_PRICE = "finalPrice";
+		public static readonly string COLUMN_NAME_OBJECT = "nameObject";
+		public static readonly string COLUMN_CAT_OBJECT = "catObject";
 
 		public static readonly string QUERY = "Select * from " + TABLE_NAME;
-		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idModerator";
+		public static readonly string GET = QUERY + " where " + COLUMN_ID_OBJECT + " =@idSeller";
 
 		public static readonly string INSERT = "Insert into" + TABLE_NAME +
-			"(" + COLUMN_ID_USER + ")"
-			+ "output inserted.id values(@idUser,0)";
+			"(" + COLUMN_FINAL_PRICE +
+			", " + COLUMN_NAME_OBJECT +
+			", " + COLUMN_CAT_OBJECT + ")"
+			+ "output inserted.id values(@idObject,0)";
 
-		public static readonly string UPDATE = "update" + TABLE_NAME + " set " +
-			COLUMN_ID_USER + " =@isUser";
+		public static readonly string UPDATE = "update" + TABLE_NAME + " set "
+			+ COLUMN_FINAL_PRICE + " =@finalPrice"
+			+ ", " + COLUMN_NAME_OBJECT + "=@nameObject"
+			+ ", " + COLUMN_CAT_OBJECT + " =@catObject";
 
 
 
 		public static readonly string DELETE = "delete from " + TABLE_NAME
-			+ " where " + COLUMN_ID_MODERATOR + " =@isModerator";
+			+ " where " + COLUMN_ID_OBJECT + " =@idObject";
 
 
 		//Renvoie liste des Objects
-		public static List<Moderator> Query()
+		public static List<Sold_object> Query()
 		{
-			List<Moderator> objects = new List<Moderator>();
+			List<Sold_object> objects = new List<Sold_object>();
 
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
@@ -43,42 +48,42 @@ namespace GroupeA07.DAO
 
 				while (reader.Read())
 				{
-					objects.Add(new Moderator(reader));
+					objects.Add(new Sold_object(reader));
 				}
 			}
 			return objects;
 		}
 
 		//Renvoie un membre selon son id
-		public static Moderator Get(int id)
+		public static Sold_object Get(int id)
 		{
-			Moderator m = null;
+			Sold_object m = null;
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
 				SqlCommand command = new SqlCommand(GET, connection);
-				command.Parameters.AddWithValue("@idModerator", id);
+				command.Parameters.AddWithValue("@idObject", id);
 				SqlDataReader reader = command.ExecuteReader();
 				if (reader.Read())
 				{
-					m = new Moderator(reader);
+					m = new Sold_object(reader);
 				}
 			}
 			return m;
 		}
 
 		//Ajout d'un membre
-		public static Moderator Insert(Moderator todo)
+		public static Sold_object Insert(Sold_object todo)
 		{
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
 				SqlCommand command = new SqlCommand(INSERT, connection);
 
-				command.Parameters.AddWithValue("@idUser", todo.idUser);
+				command.Parameters.AddWithValue("@finalPrice", todo.finalPrice);
 
 				int id = Int32.Parse(command.ExecuteScalar().ToString());
-				todo.idModerator = id;
+				todo.idObject = id;
 			}
 			return todo;
 		}
@@ -92,14 +97,14 @@ namespace GroupeA07.DAO
 				connection.Open();
 				SqlCommand command = new SqlCommand(INSERT, connection);
 
-				command.Parameters.AddWithValue("@idModerator", id);
+				command.Parameters.AddWithValue("@idObject", id);
 
 				state = command.ExecuteNonQuery() != 0;
 			}
 			return state;
 		}
 
-		public static bool Update(Moderator todo)
+		public static bool Update(Sold_object todo)
 		{
 			bool state = false;
 			using (SqlConnection connection = DataBase.GetConnection())
@@ -107,8 +112,12 @@ namespace GroupeA07.DAO
 				connection.Open();
 				SqlCommand command = new SqlCommand(UPDATE, connection);
 
-				command.Parameters.AddWithValue("@idModerator", todo.idModerator);
-				command.Parameters.AddWithValue("@idUser", todo.idUser);
+				command.Parameters.AddWithValue("@idObject", todo.idObject);
+				command.Parameters.AddWithValue("@finalPrice", todo.finalPrice);
+				command.Parameters.AddWithValue("@nameObject", todo.nameObject);
+				command.Parameters.AddWithValue("@catObject", todo.catObject);
+
+
 				state = command.ExecuteNonQuery() != 0;
 			}
 			return state;

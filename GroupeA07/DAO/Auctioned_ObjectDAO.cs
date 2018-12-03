@@ -20,7 +20,7 @@ namespace GroupeA07.DAO
 		public static readonly string COLUMN_CAT_OBJECT = "catObject";
 
 		public static readonly string QUERY = "Select * from " + TABLE_NAME;
-		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@id";
+		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idObject";
 
 		public static readonly string INSERT = "Insert into" + TABLE_NAME +
 			"(" + COLUMN_NAME_OBJECT +
@@ -66,7 +66,7 @@ namespace GroupeA07.DAO
 		}
 
 		//Renvoie un membre selon son id
-		public static Auctioned_object get(int id)
+		public static Auctioned_object Get(int id)
 		{
 			Auctioned_object m = null;
 			using (SqlConnection connection = DataBase.GetConnection())
