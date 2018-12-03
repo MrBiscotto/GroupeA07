@@ -268,12 +268,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./add-auction/add-auction.component */ "./src/app/add-auction/add-auction.component.ts");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -310,6 +312,7 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__["BrowserAnimationsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
+                _angular_http__WEBPACK_IMPORTED_MODULE_14__["HttpModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"]
             ],
             providers: [],
@@ -655,7 +658,7 @@ var SidebarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n  <div class=\"container\">\r\n    <h1>Register</h1>\r\n    <p>Please fill in this form to create an account.</p>\r\n    <hr>\r\n\r\n    <label id=\"email\"><b>Email</b></label>\r\n    <input type=\"text\" class=\"form-control\" placeholder=\"Enter Email\" name=\"email\" [(ngModel)]=\"_email\" (keydown.enter)=\"onChangeEmail()\" (keydown.Tab)=\"onChangeEmail()\" (focusout)=\"onChangeEmail()\">\r\n    <div class=\"alert alert-danger\" [hidden]=\"isHiddenEmail\">Enter a valid email</div>\r\n\r\n\r\n    <label id=\"username\"><b>Username</b></label>\r\n    <input type=\"text\" placeholder=\"Enter your username\" name=\"username\" required>\r\n\r\n    <label id=\"psw\"><b>Password</b></label>\r\n    <input type=\"password\" class=\"form-control\" [(ngModel)]=\"_pwd\"\r\n           placeholder=\"Enter Password\"\r\n           name=\"psw\" required>\r\n\r\n\r\n    <label id=\"psw-repeat\"><b>Repeat Password</b></label>\r\n    <input id=\"cfP\" type=\"password\" class=\"form-control\" [(ngModel)]=\"_cfPwd\" (keydown.enter)=\"onChangePassword()\" (keydown.Tab)=\"onChangePassword()\" (focusout)=\"onChangePassword()\" placeholder=\"Repeat Password\"\r\n           name=\"psw-repeat\"\r\n           required>\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"isHiddenBothPassword\">Ensure both passwords match</div>\r\n\r\n    <hr>\r\n\r\n    <a routerLink=\"posts\" [class.activated]=\"currentUrl == '/posts'\">\r\n      <button id=\"rBtn\" type=\"submit\" class=\"registerbtn\" [disabled]=\"!btnEnable\">Register</button>\r\n\r\n    </a>\r\n  </div>\r\n\r\n  <div class=\"container signin\">\r\n    <p>Already have an account? <a href=\"#\" routerLink=\"login\" [class.activated]=\"currentUrl == '/login'\">Sign in</a>.</p>\r\n  </div>\r\n</form>\r\n"
+module.exports = "<form>\r\n  <div class=\"container\">\r\n    <h1>Register</h1>\r\n    <p>Please fill in this form to create an account.</p>\r\n    <hr>\r\n\r\n    <label id=\"email\"><b>Email</b></label>\r\n    <input type=\"text\" class=\"form-control\" placeholder=\"Enter Email\" name=\"email\" [(ngModel)]=\"_email\" (keydown.enter)=\"onChangeEmail()\" (keydown.Tab)=\"onChangeEmail()\" (focusout)=\"onChangeEmail()\">\r\n    <div class=\"alert alert-danger\" [hidden]=\"isHiddenEmail\">Enter a valid email</div>\r\n\r\n\r\n    <label id=\"username\"><b>Username</b></label>\r\n    <input type=\"text\" placeholder=\"Enter your username\" name=\"username\" required>\r\n\r\n    <label id=\"psw\"><b>Password</b></label>\r\n    <input type=\"password\" class=\"form-control\" [(ngModel)]=\"_pwd\"\r\n           placeholder=\"Enter Password\"\r\n           name=\"psw\" required>\r\n\r\n\r\n    <label id=\"psw-repeat\"><b>Repeat Password</b></label>\r\n    <input id=\"cfP\" type=\"password\" class=\"form-control\" [(ngModel)]=\"_cfPwd\" (keydown.enter)=\"onChangePassword()\" (keydown.Tab)=\"onChangePassword()\" (focusout)=\"onChangePassword()\" placeholder=\"Repeat Password\"\r\n           name=\"psw-repeat\"\r\n           required>\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"isHiddenBothPassword\">Ensure both passwords match</div>\r\n\r\n    <hr>\r\n\r\n    <a routerLink=\"posts\" [class.activated]=\"currentUrl == '/posts'\">\r\n      <button id=\"rBtn\" type=\"submit\" class=\"registerbtn\" [disabled]=\"!btnEnable\">Register</button>\r\n\r\n    </a>\r\n  </div>\r\n\r\n  <div class=\"container signin\">\r\n    <p>Already have an account? <a href=\"#\" routerLink=\"login\" [class.activated]=\"currentUrl == '/login'\">Sign in</a>.</p>\r\n  </div>\r\n\r\n</form>\r\n"
 
 /***/ }),
 
@@ -695,6 +698,7 @@ var SignUpComponent = /** @class */ (function () {
     function SignUpComponent() {
         // btnEnable = false;
         this._isHidden = true;
+        this.apiValues = [];
     }
     SignUpComponent.prototype.ngOnInit = function () {
     };
