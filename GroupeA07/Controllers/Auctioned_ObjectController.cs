@@ -27,7 +27,7 @@ namespace GroupeA07.Controllers
 
 		public Auctioned_object Get(int id)
 		{
-			return Auctioned_ObjectDAO.get(id);
+			return Auctioned_ObjectDAO.Get(id);
 		}
 
 		public IHttpActionResult Delete(int id)
