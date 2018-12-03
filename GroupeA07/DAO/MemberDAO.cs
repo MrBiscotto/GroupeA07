@@ -18,7 +18,7 @@ namespace GroupeA07.DAO
 		public static readonly string COLUMN_USER_ADMIN = "UserAdmin";
 
 		public static readonly string QUERY = "Select * from " + TABLE_NAME;
-		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idObject";
+		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idUser";
 
 		public static readonly string INSERT = "Insert into" + TABLE_NAME +
 			"(" + COLUMN_EMAIL_USER +
@@ -60,7 +60,7 @@ namespace GroupeA07.DAO
 		}
 
 		//Renvoie un membre selon son id
-		public static Member get(int id)
+		public static Member Get(int id)
 		{
 			Member m = null;
 			using (SqlConnection connection = DataBase.GetConnection())
