@@ -1,4 +1,5 @@
-﻿using GroupeA07.Models;
+﻿using GroupeA07.DAO;
+using GroupeA07.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,90 +13,41 @@ using System.Web.Mvc;
 
 namespace GroupeA07.Controllers
 {
-    public class Sold_objectController : ApiController
-    {
-		private bddEntities db = new bddEntities();
+	public class Sold_objectController : ApiController
+	{
 
-		public IQueryable<Sold_object> GetSold_object()
+		public List<Sold_object> GetAll()
 		{
-			return db.Sold_object;
-
+			return Sold_objectDAO.Query();
 		}
 
-		public HttpResponseMessage PutSold_object(Sold_object sold)
+		public Sold_object Post(Sold_object todo)
 		{
-			if (!ModelState.IsValid)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-			}
-
-
-			db.Entry(sold).State = EntityState.Modified;
-
-			try
-			{
-				db.SaveChanges();
-			}
-			catch (DbUpdateConcurrencyException ex)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-			}
-
-			return Request.CreateResponse(HttpStatusCode.OK);
+			return Sold_objectDAO.Insert(todo);
 		}
 
-
-		public HttpResponseMessage PostSold_objectr(Sold_object sold)
+		public Sold_object Get(int id)
 		{
-			if (!ModelState.IsValid)
-			{
-				db.Sold_object.Add(sold);
-				db.SaveChanges();
-				HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, sold);
-				response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = sold.idObject }));
-				return response;
-			}
-			else
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-			}
-
+			return Sold_objectDAO.Get(id);
 		}
 
-
-		public HttpResponseMessage DeleteSold_object(Sold_object sold)
+		public IHttpActionResult Delete(int id)
 		{
-			Sold_object remove_sold = db.Sold_object.Find(sold.idObject);
-			if (remove_sold == null)
+			if (Sold_objectDAO.Delete(id))
 			{
-				return Request.CreateResponse(HttpStatusCode.NotFound);
+				return Ok();
 			}
 
-			db.Sold_object.Remove(remove_sold);
-			try
-			{
-				db.SaveChanges();
-			}
-			catch (DbUpdateConcurrencyException ex)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-			}
-
-			return Request.CreateResponse(HttpStatusCode.OK);
+			return BadRequest();
 		}
 
-		protected override void Dispose(bool disposing)
+		public IHttpActionResult Put(Sold_object todo)
 		{
-			if (disposing)
+			if (Sold_objectDAO.Update(todo))
 			{
-				db.Dispose();
+				return Ok();
 			}
-			base.Dispose(disposing);
-		}
-
-		private bool Sold_objectExists(int id)
-		{
-			return db.Sold_object.Count(e => e.idObject == id) > 0;
+			return BadRequest();
 		}
 	}
 }

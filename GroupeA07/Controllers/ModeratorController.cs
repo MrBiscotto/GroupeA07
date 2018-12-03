@@ -1,4 +1,5 @@
-﻿using GroupeA07.Models;
+﻿using GroupeA07.DAO;
+using GroupeA07.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,90 +13,41 @@ using System.Web.Mvc;
 
 namespace GroupeA07.Controllers
 {
-    public class ModeratorController : ApiController
-    {
-		private bddEntities db = new bddEntities();
+	public class ModeratorController : ApiController
+	{
 
-		public IQueryable<Moderator> GetModerator()
+		public List<Moderator> GetAll()
 		{
-			return db.Moderator;
-
+			return ModeratorDAO.Query();
 		}
 
-		public HttpResponseMessage PutModerator(Moderator mod)
+		public Moderator Post(Moderator todo)
 		{
-			if (!ModelState.IsValid)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-			}
-
-
-			db.Entry(mod).State = EntityState.Modified;
-
-			try
-			{
-				db.SaveChanges();
-			}
-			catch (DbUpdateConcurrencyException ex)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-			}
-
-			return Request.CreateResponse(HttpStatusCode.OK);
+			return ModeratorDAO.Insert(todo);
 		}
 
-
-		public HttpResponseMessage PostModerator(Moderator mod)
+		public Moderator Get(int id)
 		{
-			if (!ModelState.IsValid)
-			{
-				db.Moderator.Add(mod);
-				db.SaveChanges();
-				HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, mod);
-				response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = mod.idModerator }));
-				return response;
-			}
-			else
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-			}
-
+			return ModeratorDAO.Get(id);
 		}
 
-
-		public HttpResponseMessage DeleteModerator(Moderator mod)
+		public IHttpActionResult Delete(int id)
 		{
-			Moderator remove_mod = db.Moderator.Find(mod.idModerator);
-			if (remove_mod == null)
+			if (ModeratorDAO.Delete(id))
 			{
-				return Request.CreateResponse(HttpStatusCode.NotFound);
+				return Ok();
 			}
 
-			db.Moderator.Remove(remove_mod);
-			try
-			{
-				db.SaveChanges();
-			}
-			catch (DbUpdateConcurrencyException ex)
-			{
-				return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-			}
-
-			return Request.CreateResponse(HttpStatusCode.OK);
+			return BadRequest();
 		}
 
-		protected override void Dispose(bool disposing)
+		public IHttpActionResult Put(Moderator todo)
 		{
-			if (disposing)
+			if (ModeratorDAO.Update(todo))
 			{
-				db.Dispose();
+				return Ok();
 			}
-			base.Dispose(disposing);
-		}
-
-		private bool ModeratorExists(int id)
-		{
-			return db.Moderator.Count(e => e.idModerator == id) > 0;
+			return BadRequest();
 		}
 	}
 }
