@@ -20,7 +20,7 @@ namespace GroupeA07.Controllers
 
 		public Member Get(int id)
 		{
-			return MemberDAO.get(id);
+			return MemberDAO.Get(id);
 		}
 
 		public IHttpActionResult Delete(int id)
