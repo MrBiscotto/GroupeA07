@@ -15,27 +15,24 @@ namespace GroupeA07.DAO
 		public static readonly string COLUMN_NAME_OBJECT = "nameObject";
 		public static readonly string COLUMN_DESCRIPTION_OBJECT = "descriptionObject";
 		public static readonly string COLUMN_PRICE_OBJECT = "priceObject";
-		public static readonly string COLUMN_SELLING_DATE = "sellingDate";
 		public static readonly string COLUMN_ID_USER = "idUser";
 		public static readonly string COLUMN_CAT_OBJECT = "catObject";
 
 		public static readonly string QUERY = "Select * from " + TABLE_NAME;
-		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idObject";
+		public static readonly string GET = QUERY + " where " + COLUMN_ID_OBJECT + " =@idObject";
 
-		public static readonly string INSERT = "Insert into" + TABLE_NAME +
+		public static readonly string INSERT = "Insert into " + TABLE_NAME +
 			"(" + COLUMN_NAME_OBJECT +
 			", " + COLUMN_DESCRIPTION_OBJECT +
 			", " + COLUMN_PRICE_OBJECT +
-			", " + COLUMN_SELLING_DATE +
 			", " + COLUMN_ID_USER +
 			", " + COLUMN_CAT_OBJECT + ")"
-			+ "output inserted.id values(@nameObject,0)";
+			+ "output inserted.idObject values(@nameObject,@descriptionObject,@priceObject,@idUser,@catObject)";
 
-		public static readonly string UPDATE = "update" + TABLE_NAME + " set " +
+		public static readonly string UPDATE = "update " + TABLE_NAME + " set " +
 			COLUMN_NAME_OBJECT + " =@nameObject"
 			+ ", " + COLUMN_DESCRIPTION_OBJECT + " =@descriptionObject"
 			+ ", " + COLUMN_PRICE_OBJECT + "=@priceObject"
-			+ ", " + COLUMN_SELLING_DATE + "=@sellingDate"
 			+ ", " + COLUMN_ID_USER + "=@idUser"
 			+ ", " + COLUMN_CAT_OBJECT + "=@catObject"
 			;
@@ -92,10 +89,13 @@ namespace GroupeA07.DAO
 				SqlCommand command = new SqlCommand(INSERT, connection);
 
 				command.Parameters.AddWithValue("@nameObject", todo.nameObject);
+				command.Parameters.AddWithValue("@descriptionObject", todo.descriptionObject);
+				command.Parameters.AddWithValue("@priceObject", todo.priceObject);
+				command.Parameters.AddWithValue("@idUser", todo.idUser);
+				command.Parameters.AddWithValue("@catObject", todo.catObject);
 
-				int id = Int32.Parse(command.ExecuteScalar().ToString());
-				todo.idUser = id;
-			}
+                todo.idObject = (int)command.ExecuteScalar();
+            }
 			return todo;
 		}
 
@@ -106,7 +106,7 @@ namespace GroupeA07.DAO
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
-				SqlCommand command = new SqlCommand(INSERT, connection);
+				SqlCommand command = new SqlCommand(DELETE, connection);
 
 				command.Parameters.AddWithValue("@idObject", id);
 
@@ -123,11 +123,9 @@ namespace GroupeA07.DAO
 				connection.Open();
 				SqlCommand command = new SqlCommand(UPDATE, connection);
 
-				command.Parameters.AddWithValue("@idObject", todo.idObject);
 				command.Parameters.AddWithValue("@nameObject", todo.nameObject);
 				command.Parameters.AddWithValue("@descriptionObject", todo.descriptionObject);
 				command.Parameters.AddWithValue("@priceObject", todo.priceObject);
-				command.Parameters.AddWithValue("@sellingDate", todo.sellingDate);
 				command.Parameters.AddWithValue("@idUser", todo.idUser);
 				command.Parameters.AddWithValue("@catObject", todo.catObject);
 

@@ -19,5 +19,6 @@ namespace GroupeA07.Models
         public Nullable<int> nbSales { get; set; }
         public Nullable<int> positiveVote { get; set; }
         public Nullable<int> negativeVote { get; set; }
+        public Nullable<int> idUser { get; set; }
     }
 }

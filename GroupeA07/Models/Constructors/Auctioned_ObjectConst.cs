@@ -18,7 +18,6 @@ namespace GroupeA07.Models
 			nameObject = reader[Auctioned_ObjectDAO.COLUMN_NAME_OBJECT].ToString();
 			descriptionObject = reader[Auctioned_ObjectDAO.COLUMN_DESCRIPTION_OBJECT].ToString();
 			priceObject = Int32.Parse(reader[Auctioned_ObjectDAO.COLUMN_PRICE_OBJECT].ToString());
-			sellingDate = DateTime.Parse(reader[Auctioned_ObjectDAO.COLUMN_PRICE_OBJECT].ToString());
 			idUser = Int32.Parse(reader[Auctioned_ObjectDAO.COLUMN_ID_USER].ToString());
 			catObject = (reader[Auctioned_ObjectDAO.COLUMN_CAT_OBJECT].ToString());
 		}

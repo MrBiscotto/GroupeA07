@@ -14,6 +14,7 @@ namespace GroupeA07.Models
 		public Moderator(SqlDataReader reader)
 		{
 			idModerator = Int32.Parse(reader[ModeratorDAO.COLUMN_ID_MODERATOR].ToString());
+			idUser = Int32.Parse(reader[ModeratorDAO.COLUMN_ID_USER].ToString());
 		}
 	}
 }

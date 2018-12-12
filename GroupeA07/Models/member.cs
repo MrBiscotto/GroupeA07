@@ -9,20 +9,15 @@
 
 namespace GroupeA07.Models
 {
-	using GroupeA07.DAO;
-	using System;
+    using System;
     using System.Collections.Generic;
-	using System.Data.SqlClient;
-
-	public partial class Member
+    
+    public partial class Member
     {
         public int idUser { get; set; }
         public string emailUser { get; set; }
         public string username { get; set; }
         public string userPwd { get; set; }
         public byte userAdmin { get; set; }
-
-	}
-
-
+    }
 }

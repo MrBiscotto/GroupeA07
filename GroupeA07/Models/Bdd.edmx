@@ -9,11 +9,10 @@
           <Key>
             <PropertyRef Name="idObject" />
           </Key>
-          <Property Name="idObject" Type="int" Nullable="false" />
+          <Property Name="idObject" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nameObject" Type="varchar" MaxLength="55" Nullable="false" />
           <Property Name="descriptionObject" Type="varchar" MaxLength="250" />
           <Property Name="priceObject" Type="int" Nullable="false" />
-          <Property Name="sellingDate" Type="datetime" Nullable="false" />
           <Property Name="idUser" Type="int" Nullable="false" />
           <Property Name="catObject" Type="char" MaxLength="40" />
         </EntityType>
@@ -29,10 +28,10 @@
           <Key>
             <PropertyRef Name="idUser" />
           </Key>
-          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="emailUser" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="username" Type="char" MaxLength="20" Nullable="false" />
-          <Property Name="userPwd" Type="char" MaxLength="25" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="userPwd" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="userAdmin" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Moderator">
@@ -46,11 +45,12 @@
           <Key>
             <PropertyRef Name="idSeller" />
           </Key>
-          <Property Name="idSeller" Type="int" Nullable="false" />
-          <Property Name="username" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="idSeller" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="nbSales" Type="int" />
           <Property Name="positiveVote" Type="int" />
           <Property Name="negativeVote" Type="int" />
+          <Property Name="idUser" Type="int" />
         </EntityType>
         <EntityType Name="Sold_object">
           <Key>
@@ -78,11 +78,10 @@
           <Key>
             <PropertyRef Name="idObject" />
           </Key>
-          <Property Name="idObject" Type="Int32" Nullable="false" />
+          <Property Name="idObject" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nameObject" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="descriptionObject" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="priceObject" Type="Int32" Nullable="false" />
-          <Property Name="sellingDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="idUser" Type="Int32" Nullable="false" />
           <Property Name="catObject" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
         </EntityType>
@@ -98,10 +97,10 @@
           <Key>
             <PropertyRef Name="idUser" />
           </Key>
-          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="emailUser" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="username" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="userPwd" Type="String" MaxLength="25" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userPwd" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="userAdmin" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="Moderator">
@@ -115,11 +114,12 @@
           <Key>
             <PropertyRef Name="idSeller" />
           </Key>
-          <Property Name="idSeller" Type="Int32" Nullable="false" />
-          <Property Name="username" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idSeller" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nbSales" Type="Int32" />
           <Property Name="positiveVote" Type="Int32" />
           <Property Name="negativeVote" Type="Int32" />
+          <Property Name="idUser" Type="Int32" />
         </EntityType>
         <EntityType Name="Sold_object">
           <Key>
@@ -130,7 +130,7 @@
           <Property Name="nameObject" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
           <Property Name="catObject" Type="String" MaxLength="40" FixedLength="true" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="bddEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Auctioned_object" EntityType="Self.Auctioned_object" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="Member" EntityType="Self.Member" />
@@ -143,7 +143,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="groupea07ModelStoreContainer" CdmEntityContainer="bddEntities">
+        <EntityContainerMapping StorageEntityContainer="groupea07ModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Auctioned_object">
             <EntityTypeMapping TypeName="groupea07Model.Auctioned_object">
               <MappingFragment StoreEntitySet="Auctioned_object">
@@ -151,7 +151,6 @@
                 <ScalarProperty Name="nameObject" ColumnName="nameObject" />
                 <ScalarProperty Name="descriptionObject" ColumnName="descriptionObject" />
                 <ScalarProperty Name="priceObject" ColumnName="priceObject" />
-                <ScalarProperty Name="sellingDate" ColumnName="sellingDate" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="catObject" ColumnName="catObject" />
               </MappingFragment>
@@ -193,6 +192,7 @@
                 <ScalarProperty Name="nbSales" ColumnName="nbSales" />
                 <ScalarProperty Name="positiveVote" ColumnName="positiveVote" />
                 <ScalarProperty Name="negativeVote" ColumnName="negativeVote" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

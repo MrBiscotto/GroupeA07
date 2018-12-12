@@ -20,15 +20,14 @@ namespace GroupeA07.DAO
 		public static readonly string QUERY = "Select * from " + TABLE_NAME;
 		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idUser";
 
-		public static readonly string INSERT = "Insert into" + TABLE_NAME +
-			"(" + COLUMN_EMAIL_USER +
-			", " + COLUMN_EMAIL_USER +
-			", " + COLUMN_USER_NAME +
-			", " + COLUMN_USER_PWD +
-			", " + COLUMN_USER_ADMIN + ")"
-			+ "output inserted.id values(@EmailUser,0)";
+        public static readonly string INSERT = "Insert into " + TABLE_NAME +
+             "(" + COLUMN_EMAIL_USER +
+             ", " + COLUMN_USER_NAME +
+             ", " + COLUMN_USER_PWD +
+             ", " + COLUMN_USER_ADMIN + ")"
+            + " output inserted.idUser values(@emailUser,@username,@userPwd,0)";
 
-		public static readonly string UPDATE = "update" + TABLE_NAME + " set " +
+        public static readonly string UPDATE = "update" + TABLE_NAME + " set " +
 			COLUMN_EMAIL_USER + " =@emailUser"
 			+ ", " + COLUMN_USER_NAME + " =@username"
 			+ ", " + COLUMN_USER_PWD + "=@userPwd"
@@ -40,7 +39,7 @@ namespace GroupeA07.DAO
 			+ " where " + COLUMN_ID_USER + " =@idUser";
 
 
-		//Renvoie liste des membres
+		//Return member list
 		public static List<Member> Query()
 		{
 			List<Member> todos = new List<Member>();
@@ -59,7 +58,7 @@ namespace GroupeA07.DAO
 			return todos;
 		}
 
-		//Renvoie un membre selon son id
+		//Return member thanks to id
 		public static Member Get(int id)
 		{
 			Member m = null;
@@ -77,31 +76,33 @@ namespace GroupeA07.DAO
 			return m;
 		}
 
-		//Ajout d'un membre
-		public static Member Insert(Member m)
-		{
-			using (SqlConnection connection = DataBase.GetConnection())
-			{
-				connection.Open();
-				SqlCommand command = new SqlCommand(INSERT, connection);
+        //Add member
+        public static Member Insert(Member m)
+        {
+            using (SqlConnection connection = DataBase.GetConnection())
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(INSERT, connection);
 
-				command.Parameters.AddWithValue("@emailUser", m.emailUser);
+                command.Parameters.AddWithValue("@emailUser", m.emailUser);
+                command.Parameters.AddWithValue("@username", m.username);
+                command.Parameters.AddWithValue("@userPwd", m.userPwd);
+                command.Parameters.AddWithValue("@userAdmin", m.userAdmin);
 
-				int id = Int32.Parse(command.ExecuteScalar().ToString());
-				m.idUser = id;
-			}
-			return m;
-		}
+                m.idUser = (int)command.ExecuteScalar();
+            }
+            return m;
+        }
 
-		//Suppresion d'un membre
-		public static bool Delete(int id)
+        //DELETE MEMBER
+        public static bool Delete(int id)
 		{
 
 			bool state = false;
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
-				SqlCommand command = new SqlCommand(INSERT, connection);
+				SqlCommand command = new SqlCommand(DELETE, connection);
 
 				command.Parameters.AddWithValue("@idUser", id);
 
@@ -110,7 +111,7 @@ namespace GroupeA07.DAO
 			return state;
 		}
 
-		//Update d'un membre
+		//Update Member
 		public static bool Update(Member m)
 		{
 			bool state = false;
@@ -119,7 +120,6 @@ namespace GroupeA07.DAO
 				connection.Open();
 				SqlCommand command = new SqlCommand(UPDATE, connection);
 
-				command.Parameters.AddWithValue("@idUser", m.idUser);
 				command.Parameters.AddWithValue("@emailUser", m.emailUser);
 				command.Parameters.AddWithValue("@username", m.username);
 				command.Parameters.AddWithValue("@userPwd", m.userPwd);

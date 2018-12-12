@@ -23,6 +23,73 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./src/app/add-auction/SellerService/seller.service.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/add-auction/SellerService/seller.service.ts ***!
+  \*************************************************************/
+/*! exports provided: SellerService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SellerService", function() { return SellerService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var SellerService = /** @class */ (function () {
+    function SellerService(http) {
+        this.http = http;
+    }
+    SellerService.prototype.getSellers = function () {
+        return this.http.get('http://localhost:50867/api/seller_user');
+    };
+    SellerService.prototype.getSeller = function (sellerId) {
+        return this.http.get('http://localhost:50867/api/seller_user/' + sellerId);
+    };
+    SellerService.prototype.deleteSeller = function (sellerId) {
+        return this.http.delete('http://localhost:50867/api/seller_user/' + sellerId);
+    };
+    SellerService.prototype.addSeller = function (user, nbsales, pVote, nVote, idUser) {
+        return this.http.post('http://localhost:50867/api/seller_user/', {
+            'username': user,
+            'nbSales': nbsales,
+            'positiveVote': pVote,
+            'negativeVote': nVote,
+            'idUser': idUser
+        });
+    };
+    SellerService.prototype.updateSeller = function (user, nbsales, pVote, nVote, idUser) {
+        return this.http.put('http://localhost:50867/api/seller_user/', {
+            'username': user,
+            'nbSales': nbsales,
+            'positiveVote': pVote,
+            'negativeVote': nVote,
+            'idUser': idUser
+        });
+    };
+    SellerService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], SellerService);
+    return SellerService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/add-auction/add-auction.component.html":
 /*!********************************************************!*\
   !*** ./src/app/add-auction/add-auction.component.html ***!
@@ -30,7 +97,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n  <div class=\"container\">\r\n    <h1>Add an auction</h1>\r\n    <p>Please fill in this form to create an auction.</p>\r\n    <hr>\r\n\r\n    <label id=\"name\"><b>Name</b></label>\r\n    <input type=\"text\" class=\"form-control\" placeholder=\"Enter name\" name=\"text\" [(ngModel)]=\"_name\" (keydown.enter)=\"onChangeName()\" (keydown.Tab)=\"onChangeName()\" (focusout)=\"onChangeName()\">\r\n    <div class=\"alert alert-danger\" [hidden]=\"isHiddenName\">Enter a valid name</div>\r\n\r\n\r\n    <label id=\"description\"><b>Description</b></label>\r\n    <input type=\"text\" class=\"form-control\" rows=\"3\" placeholder=\"Please put a description\" name=\"description\" required>\r\n\r\n\r\n    <label id=\"price\"><b>Starting price</b></label>\r\n    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"_price\"\r\n           placeholder=\"Enter Price\"\r\n           name=\"price\" required>\r\n    <div class=\"alert alert-danger\" [hidden]=\"isHiddenPrice\">Please enter a valid price</div>\r\n\r\n    <!-- faire un ngfor avec un select option avec toutes les catégories-->\r\n    <label id=\"price2\"><b>Catégorie (select a faire avec un ngfor avec la BD)</b></label>\r\n\r\n    <hr>\r\n\r\n    <a routerLink=\"posts\" [class.activated]=\"currentUrl == '/posts'\">\r\n      <button id=\"rBtn\" type=\"submit\" class=\"registerbtn\" [disabled]=\"!btnEnable\">Register</button>\r\n    </a>\r\n  </div>\r\n\r\n  <div class=\"container signin\">\r\n    <p>Already have an account? <a href=\"#\" routerLink=\"login\" [class.activated]=\"currentUrl == '/login'\">Sign in</a>.</p>\r\n  </div>\r\n</form>\r\n"
+module.exports = "<form #form=\"ngForm\" (ngSubmit)=\"onAddObject()\">\r\n  <div class=\"container\">\r\n    <h1>Add an auction</h1>\r\n    <p>Please fill in this form to create an auction.</p>\r\n    <hr>\r\n\r\n    <label id=\"name\"><b>Name</b></label>\r\n    <input type=\"text\" class=\"form-control\" placeholder=\"Enter name\" name=\"text\" [(ngModel)]=\"_name\" (keydown.enter)=\"onChangeName()\" (keydown.Tab)=\"onChangeName()\" (focusout)=\"onChangeName()\">\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"_isHiddenName\">Enter a valid name</div>\r\n\r\n\r\n\r\n    <label id=\"description\"><b>Description</b></label>\r\n    <input type=\"text\" class=\"form-control\" rows=\"3\" placeholder=\"Please put a description\" [(ngModel)]=\"_description\" name=\"description\">\r\n\r\n\r\n    <label id=\"price\"><b>Price</b></label>\r\n    <input type=\"number\" class=\"form-control\" [(ngModel)]=\"_price\"\r\n           placeholder=\"Enter Price\"\r\n           name=\"price\"\r\n           (keydown.enter)=\"onChangePrice()\" (keydown.Tab)=\"onChangePrice()\" (focusout)=\"onChangePrice()\">\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"_isHiddenPrice\">Please enter a valid price</div>\r\n\r\n    <!-- faire un ngfor avec un select option avec toutes les catégories-->\r\n    <label id=\"price2\"><b>Category</b></label>\r\n\r\n    <select class=form-control (change)=\"onSelect($event.target.value)\">\r\n      <option value=\"default\" selected disabled hidden>Choose here</option>\r\n      <option value=Collection>Collection</option>\r\n      <option value=Art>Art</option>\r\n      <option value=Other>Other</option>\r\n    </select>\r\n\r\n    <hr>\r\n\r\n      <button type=\"submit\" class=\"btn btn-secondary btn-lg active\">Sell Object</button>\r\n\r\n  </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -57,6 +124,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddAuctionComponent", function() { return AddAuctionComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _auctioned_object_auctioned_object_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../auctioned-object/auctioned-object.service */ "./src/app/auctioned-object/auctioned-object.service.ts");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var _SellerService_seller_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SellerService/seller.service */ "./src/app/add-auction/SellerService/seller.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68,42 +138,87 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
+
 var AddAuctionComponent = /** @class */ (function () {
-    function AddAuctionComponent(router) {
+    function AddAuctionComponent(router, _objectService, _cookieService, _sellerService) {
         var _this = this;
         this.router = router;
+        this._objectService = _objectService;
+        this._cookieService = _cookieService;
+        this._sellerService = _sellerService;
+        this._sellers = [];
+        this._sellExist = false;
         router.events.subscribe(function (_) { return _this.currentUrl = _.url; });
     }
     AddAuctionComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this._isHiddenName = true;
+        this._isHiddenPrice = true;
+        this._sellerService.getSellers()
+            .subscribe(function (data) { return _this._sellers = data; });
+    };
+    AddAuctionComponent.prototype.onSelect = function (val) {
+        this._cat = val;
+    };
+    // Add sell object
+    AddAuctionComponent.prototype.onAddObject = function (user) {
+        /*Add seller object*/
+        // Add member seller
+        if (this.onChangeName() === true && this.onChangePrice() === true && this._cat !== '') {
+            for (var _i = 0, _a = this._sellers; _i < _a.length; _i++) {
+                var s = _a[_i];
+                if (s.idUser === Number(this._cookieService.get('login'))) {
+                    console.log('UDPATE');
+                    var newSales = s.nbSales + 1;
+                    console.log('UDPATE SELLER / ' + s.username.valueOf() + ' ' + newSales + ' ' + s.positiveVote + ' ' + s.negativeVote + ' ' + s.idUser);
+                    //UPDATE MY SELLER_USER HERE ****
+                    this._sellerService.updateSeller(s.username.valueOf(), newSales, s.positiveVote, s.negativeVote, s.idUser).subscribe();
+                    this._objectService.addObject(this._name, this._description, this._price, Number(this._cookieService.get('login')), this._cat).subscribe();
+                    this._sellExist = true;
+                    alert('Action performed !');
+                    break;
+                }
+            }
+            if (this._sellExist === false) {
+                console.log('NEW SELLER');
+                this._sellerService.addSeller(this._cookieService.get('username'), 1, 0, 0, Number(this._cookieService.get('login'))).subscribe();
+                this._objectService.addObject(this._name, this._description, this._price, Number(this._cookieService.get('login')), this._cat).subscribe();
+                alert('Action performed !');
+            }
+        }
+        else {
+            alert('no selection in the drop-down list !');
+        }
     };
     AddAuctionComponent.prototype.onChangeName = function () {
-        if (this._name == '') {
+        if (this._name === '') {
             this._isHiddenName = false;
+            return false;
         }
-        this._isHiddenName = true;
+        else {
+            console.log('PAS VIDE ' + this._name);
+            this._isHiddenName = true;
+            return true;
+        }
     };
-    Object.defineProperty(AddAuctionComponent.prototype, "isHiddenName", {
-        get: function () {
-            return this._isHiddenName;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(AddAuctionComponent.prototype, "name", {
-        get: function () {
-            return this._name;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    AddAuctionComponent.prototype.onChangePrice = function () {
+        if (!isNaN(this._price) || this._price === 0) {
+            this._isHiddenPrice = true;
+            return true;
+        }
+        this._isHiddenPrice = false;
+        return false;
+    };
     AddAuctionComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-add-auction',
             template: __webpack_require__(/*! ./add-auction.component.html */ "./src/app/add-auction/add-auction.component.html"),
             styles: [__webpack_require__(/*! ./add-auction.component.scss */ "./src/app/add-auction/add-auction.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _auctioned_object_auctioned_object_service__WEBPACK_IMPORTED_MODULE_2__["AuctionedObjectService"],
+            ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__["CookieService"], _SellerService_seller_service__WEBPACK_IMPORTED_MODULE_4__["SellerService"]])
     ], AddAuctionComponent);
     return AddAuctionComponent;
 }());
@@ -124,12 +239,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppRoutingModule", function() { return AppRoutingModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _users_users_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./users/users.component */ "./src/app/users/users.component.ts");
-/* harmony import */ var _details_details_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./details/details.component */ "./src/app/details/details.component.ts");
-/* harmony import */ var _posts_posts_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./posts/posts.component */ "./src/app/posts/posts.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./sign-up/sign-up.component */ "./src/app/sign-up/sign-up.component.ts");
-/* harmony import */ var _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./add-auction/add-auction.component */ "./src/app/add-auction/add-auction.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sign-up/sign-up.component */ "./src/app/sign-up/sign-up.component.ts");
+/* harmony import */ var _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./add-auction/add-auction.component */ "./src/app/add-auction/add-auction.component.ts");
+/* harmony import */ var _member_member_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./member/member.component */ "./src/app/member/member.component.ts");
+/* harmony import */ var _auctioned_object_auctioned_object_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auctioned-object/auctioned-object.component */ "./src/app/auctioned-object/auctioned-object.component.ts");
+/* harmony import */ var _auctioned_object_object_detail_object_detail_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./auctioned-object/object-detail/object-detail.component */ "./src/app/auctioned-object/object-detail/object-detail.component.ts");
+/* harmony import */ var _member_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./member/member-detail/member-detail.component */ "./src/app/member/member-detail/member-detail.component.ts");
+/* harmony import */ var _sold_object_sold_object_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sold-object/sold-object.component */ "./src/app/sold-object/sold-object.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -144,30 +261,40 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [{
         path: '',
-        component: _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_6__["SignUpComponent"],
+        component: _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_3__["SignUpComponent"],
         pathMatch: 'full'
     },
     {
         path: 'login',
-        component: _login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"],
+        component: _login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"],
     },
     {
-        path: 'users',
-        component: _users_users_component__WEBPACK_IMPORTED_MODULE_2__["UsersComponent"]
+        path: 'member-detail/:id',
+        component: _member_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_8__["MemberDetailComponent"]
     },
     {
-        path: 'details/:id',
-        component: _details_details_component__WEBPACK_IMPORTED_MODULE_3__["DetailsComponent"]
-    },
-    {
-        path: 'posts',
-        component: _posts_posts_component__WEBPACK_IMPORTED_MODULE_4__["PostsComponent"]
+        path: 'object-detail/:id',
+        component: _auctioned_object_object_detail_object_detail_component__WEBPACK_IMPORTED_MODULE_7__["ObjectDetailComponent"]
     },
     {
         path: 'add-auction',
-        component: _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_7__["AddAuctionComponent"]
+        component: _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_4__["AddAuctionComponent"]
+    },
+    {
+        path: 'member',
+        component: _member_member_component__WEBPACK_IMPORTED_MODULE_5__["MemberComponent"]
+    },
+    {
+        path: 'soldObject',
+        component: _sold_object_sold_object_component__WEBPACK_IMPORTED_MODULE_9__["SoldObjectComponent"]
+    },
+    {
+        path: 'auctioned-object',
+        component: _auctioned_object_auctioned_object_component__WEBPACK_IMPORTED_MODULE_6__["AuctionedObjectComponent"]
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -258,23 +385,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _posts_posts_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./posts/posts.component */ "./src/app/posts/posts.component.ts");
-/* harmony import */ var _users_users_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./users/users.component */ "./src/app/users/users.component.ts");
-/* harmony import */ var _details_details_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./details/details.component */ "./src/app/details/details.component.ts");
-/* harmony import */ var _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./sidebar/sidebar.component */ "./src/app/sidebar/sidebar.component.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sign-up/sign-up.component */ "./src/app/sign-up/sign-up.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./add-auction/add-auction.component */ "./src/app/add-auction/add-auction.component.ts");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _details_details_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./details/details.component */ "./src/app/details/details.component.ts");
+/* harmony import */ var _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./sidebar/sidebar.component */ "./src/app/sidebar/sidebar.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./sign-up/sign-up.component */ "./src/app/sign-up/sign-up.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./add-auction/add-auction.component */ "./src/app/add-auction/add-auction.component.ts");
+/* harmony import */ var _member_member_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./member/member.component */ "./src/app/member/member.component.ts");
+/* harmony import */ var _auctioned_object_auctioned_object_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./auctioned-object/auctioned-object.component */ "./src/app/auctioned-object/auctioned-object.component.ts");
+/* harmony import */ var _auctioned_object_object_detail_object_detail_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./auctioned-object/object-detail/object-detail.component */ "./src/app/auctioned-object/object-detail/object-detail.component.ts");
+/* harmony import */ var _member_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./member/member-detail/member-detail.component */ "./src/app/member/member-detail/member-detail.component.ts");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var _sold_object_sold_object_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./sold-object/sold-object.component */ "./src/app/sold-object/sold-object.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -298,25 +431,27 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
-                _posts_posts_component__WEBPACK_IMPORTED_MODULE_4__["PostsComponent"],
-                _users_users_component__WEBPACK_IMPORTED_MODULE_5__["UsersComponent"],
-                _details_details_component__WEBPACK_IMPORTED_MODULE_6__["DetailsComponent"],
-                _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_7__["SidebarComponent"],
-                _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_10__["SignUpComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"],
-                _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_13__["AddAuctionComponent"]
+                _details_details_component__WEBPACK_IMPORTED_MODULE_4__["DetailsComponent"],
+                _sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_5__["SidebarComponent"],
+                _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_8__["SignUpComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_9__["LoginComponent"],
+                _add_auction_add_auction_component__WEBPACK_IMPORTED_MODULE_11__["AddAuctionComponent"],
+                _member_member_component__WEBPACK_IMPORTED_MODULE_12__["MemberComponent"],
+                _auctioned_object_auctioned_object_component__WEBPACK_IMPORTED_MODULE_13__["AuctionedObjectComponent"],
+                _auctioned_object_object_detail_object_detail_component__WEBPACK_IMPORTED_MODULE_14__["ObjectDetailComponent"],
+                _member_member_detail_member_detail_component__WEBPACK_IMPORTED_MODULE_15__["MemberDetailComponent"],
+                _sold_object_sold_object_component__WEBPACK_IMPORTED_MODULE_17__["SoldObjectComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClientModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_9__["BrowserAnimationsModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],
-                _angular_http__WEBPACK_IMPORTED_MODULE_14__["HttpModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"]
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClientModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_7__["BrowserAnimationsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ReactiveFormsModule"]
             ],
-            providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]],
+            providers: [ngx_cookie_service__WEBPACK_IMPORTED_MODULE_16__["CookieService"]]
         })
     ], AppModule);
     return AppModule;
@@ -326,16 +461,101 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/data.service.ts":
-/*!*********************************!*\
-  !*** ./src/app/data.service.ts ***!
-  \*********************************/
-/*! exports provided: DataService */
+/***/ "./src/app/auctioned-object/auctioned-object.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/auctioned-object/auctioned-object.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Auctioned objects</h2>\n<ul [@listStagger]=\"objects\">\n  <li *ngFor=\"let o of objects\">\n   <a routerLink=\"/object-detail/{{o.idObject}}\">{{ o.nameObject }}</a>\n    <ul>\n      <li>{{ o.catObject }}</li>\n      <li>{{ o.priceObject }} €</li>\n    </ul>\n  </li>\n</ul>\n"
+
+/***/ }),
+
+/***/ "./src/app/auctioned-object/auctioned-object.component.scss":
+/*!******************************************************************!*\
+  !*** ./src/app/auctioned-object/auctioned-object.component.scss ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2F1Y3Rpb25lZC1vYmplY3QvYXVjdGlvbmVkLW9iamVjdC5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/auctioned-object/auctioned-object.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/auctioned-object/auctioned-object.component.ts ***!
+  \****************************************************************/
+/*! exports provided: AuctionedObjectComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataService", function() { return DataService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuctionedObjectComponent", function() { return AuctionedObjectComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _auctioned_object_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auctioned-object.service */ "./src/app/auctioned-object/auctioned-object.service.ts");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AuctionedObjectComponent = /** @class */ (function () {
+    function AuctionedObjectComponent(_objectService) {
+        this._objectService = _objectService;
+        this.objects = [];
+    }
+    AuctionedObjectComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._objectService.getObjects()
+            .subscribe(function (data) { return _this.objects = data; });
+    };
+    AuctionedObjectComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-auctioned-object',
+            template: __webpack_require__(/*! ./auctioned-object.component.html */ "./src/app/auctioned-object/auctioned-object.component.html"),
+            styles: [__webpack_require__(/*! ./auctioned-object.component.scss */ "./src/app/auctioned-object/auctioned-object.component.scss")],
+            animations: [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["trigger"])('listStagger', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["transition"])('* <=> *', [
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["query"])(':enter', [
+                            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 0, transform: 'translateY(-15px)' }),
+                            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["stagger"])('50ms', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["animate"])('550ms ease-out', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 1, transform: 'translateY(0px)' })))
+                        ], { optional: true }),
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["query"])(':leave', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["animate"])('50ms', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 0 })), {
+                            optional: true
+                        })
+                    ])
+                ])
+            ]
+        }),
+        __metadata("design:paramtypes", [_auctioned_object_service__WEBPACK_IMPORTED_MODULE_1__["AuctionedObjectService"]])
+    ], AuctionedObjectComponent);
+    return AuctionedObjectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/auctioned-object/auctioned-object.service.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/auctioned-object/auctioned-object.service.ts ***!
+  \**************************************************************/
+/*! exports provided: AuctionedObjectService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuctionedObjectService", function() { return AuctionedObjectService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -349,26 +569,257 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-var DataService = /** @class */ (function () {
-    function DataService(http) {
+var AuctionedObjectService = /** @class */ (function () {
+    function AuctionedObjectService(http) {
         this.http = http;
     }
-    DataService.prototype.getUsers = function () {
-        return this.http.get('https://jsonplaceholder.typicode.com/users');
+    AuctionedObjectService.prototype.getObjects = function () {
+        return this.http.get('http://localhost:50867/api/auctioned_object');
     };
-    DataService.prototype.getUser = function (userId) {
-        return this.http.get('https://jsonplaceholder.typicode.com/users/' + userId);
+    AuctionedObjectService.prototype.deleteObject = function (objectId) {
+        return this.http.delete('http://localhost:50867/api/auctioned_object/' + objectId);
     };
-    DataService.prototype.getPosts = function () {
-        return this.http.get('https://jsonplaceholder.typicode.com/posts');
+    AuctionedObjectService.prototype.getObject = function (objectId) {
+        return this.http.get('http://localhost:50867/api/auctioned_object/' + objectId);
     };
-    DataService = __decorate([
+    AuctionedObjectService.prototype.addObject = function (name, descri, price, idUser, cat) {
+        return this.http.post('http://localhost:50867/api/Auctioned_object/', {
+            'nameObject': name,
+            'descriptionObject': descri,
+            'priceObject': price,
+            'idUser': idUser,
+            'catObject': cat
+        });
+    };
+    AuctionedObjectService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], DataService);
-    return DataService;
+    ], AuctionedObjectService);
+    return AuctionedObjectService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/auctioned-object/object-detail/object-detail.component.html":
+/*!*****************************************************************************!*\
+  !*** ./src/app/auctioned-object/object-detail/object-detail.component.html ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1>{{ object$.nameObject }}</h1>\n\n<ul>\n  <li>\n    <strong>Object description : </strong> {{ object$.descriptionObject }}<br>\n    <strong>Price :  </strong> {{ object$.priceObject }} €\n  </li>\n</ul>\n\n<ul>\n  <li>\n    <strong>Seller : </strong>{{_seller}}<br>\n    <strong>Number of sales : </strong>{{_nbSales}}<br>\n  </li>\n\n  <li><strong>Positive votes </strong> {{_pVotes}} <input type=\"image\" src=\"http://image.noelshack.com/fichiers/2018/49/4/1544087951-pouce-vert-png.png\"   (click)=\"green()\"  width=\"50\" height=\"50\"/> &nbsp;&nbsp;&nbsp; <strong>Negative votes </strong> {{_nVotes}} <input type=\"image\" src=\"http://image.noelshack.com/fichiers/2018/49/4/1544087667-red.png\"  (click)=\"red()\" width=\"50\" height=\"50\"/></li>\n  <br>\n  <button class=\"btn btn-secondary btn-lg active\"  (click)=\"buyObject()\">Buy it</button>\n</ul>\n"
+
+/***/ }),
+
+/***/ "./src/app/auctioned-object/object-detail/object-detail.component.scss":
+/*!*****************************************************************************!*\
+  !*** ./src/app/auctioned-object/object-detail/object-detail.component.scss ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2F1Y3Rpb25lZC1vYmplY3Qvb2JqZWN0LWRldGFpbC9vYmplY3QtZGV0YWlsLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/auctioned-object/object-detail/object-detail.component.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/auctioned-object/object-detail/object-detail.component.ts ***!
+  \***************************************************************************/
+/*! exports provided: ObjectDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ObjectDetailComponent", function() { return ObjectDetailComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _member_member_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../member/member.service */ "./src/app/member/member.service.ts");
+/* harmony import */ var _auctioned_object_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../auctioned-object.service */ "./src/app/auctioned-object/auctioned-object.service.ts");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var _add_auction_SellerService_seller_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../add-auction/SellerService/seller.service */ "./src/app/add-auction/SellerService/seller.service.ts");
+/* harmony import */ var _sold_object_sold_object_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../sold-object/sold-object.service */ "./src/app/sold-object/sold-object.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var ObjectDetailComponent = /** @class */ (function () {
+    function ObjectDetailComponent(_route, _cookieService, _soldObjectService, _router, _objectService, _memberService, _sellerService) {
+        var _this = this;
+        this._route = _route;
+        this._cookieService = _cookieService;
+        this._soldObjectService = _soldObjectService;
+        this._router = _router;
+        this._objectService = _objectService;
+        this._memberService = _memberService;
+        this._sellerService = _sellerService;
+        this._objects = [];
+        this._sellers = [];
+        this._green = false;
+        this._red = false;
+        this._route.params.subscribe(function (params) { return _this.object$ = params.id; });
+        this._route.params.subscribe(function (params) { return _this._objId = params.id; });
+    }
+    ObjectDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._objectService.getObjects().subscribe(function (data4) { return _this._objects = data4; });
+        this._objectService.getObject(this.object$).subscribe(function (data) { return _this.object$ = data; });
+        this._memberService.getMember(Number(this._cookieService.get('login')))
+            .subscribe(function (data2) { return _this._member$ = data2; });
+        this._sellerService.getSellers()
+            .subscribe(function (data3) {
+            _this._sellers = data3;
+            _this.sellerUser(); // here
+        });
+    };
+    ObjectDetailComponent.prototype.buyObject = function () {
+        var cookieExists = this._cookieService.check('login');
+        if (cookieExists === true) {
+            for (var _i = 0, _a = this._objects; _i < _a.length; _i++) {
+                var obj = _a[_i];
+                if (obj.idObject === Number(this._objId)) {
+                    this._objectService.deleteObject(obj.idObject).subscribe();
+                    this._soldObjectService.addSoldObject(obj.priceObject, obj.nameObject, obj.catObject).subscribe();
+                    this._router.navigate(['auctioned-object']);
+                    alert('Purchase made successfully !');
+                    break;
+                }
+            }
+        }
+        else {
+            this._router.navigate(['login']);
+            alert('You must be connected !');
+        }
+    };
+    ObjectDetailComponent.prototype.green = function () {
+        if (this._green === true) {
+            alert('You have already rated !');
+        }
+        else {
+            if (this.userAccess() === true) {
+                var idUser = 0;
+                var username = void 0;
+                var nbSales = void 0;
+                var pVotes = void 0;
+                var nVotes = void 0;
+                for (var _i = 0, _a = this._objects; _i < _a.length; _i++) {
+                    var obj = _a[_i];
+                    if (obj.idObject === Number(this._objId)) {
+                        idUser = obj.idUser;
+                        break;
+                    }
+                }
+                for (var _b = 0, _c = this._sellers; _b < _c.length; _b++) {
+                    var seller = _c[_b];
+                    if (seller.idUser === idUser) {
+                        username = seller.username;
+                        nbSales = seller.nbSales;
+                        pVotes = seller.positiveVote;
+                        nVotes = seller.negativeVote;
+                        pVotes++;
+                        this._sellerService.updateSeller(username, nbSales, pVotes, nVotes, idUser).subscribe();
+                        this._green = true;
+                        this._red = true;
+                        alert('rated note !');
+                        break;
+                    }
+                }
+            }
+        }
+    };
+    ObjectDetailComponent.prototype.red = function () {
+        if (this._red === true) {
+            alert('You have already rated !');
+        }
+        else {
+            if (this.userAccess() === true) {
+                var idUser = 0;
+                var username = void 0;
+                var nbSales = void 0;
+                var pVotes = void 0;
+                var nVotes = void 0;
+                for (var _i = 0, _a = this._objects; _i < _a.length; _i++) {
+                    var obj = _a[_i];
+                    if (obj.idObject === Number(this._objId)) {
+                        idUser = obj.idUser;
+                        break;
+                    }
+                }
+                for (var _b = 0, _c = this._sellers; _b < _c.length; _b++) {
+                    var sell = _c[_b];
+                    if (sell.idUser === idUser) {
+                        username = sell.username;
+                        nbSales = sell.nbSales;
+                        pVotes = sell.positiveVote;
+                        nVotes = sell.negativeVote;
+                        nVotes++;
+                        this._sellerService.updateSeller(username, nbSales, pVotes, nVotes, idUser).subscribe();
+                        this._green = true;
+                        this._red = true;
+                        alert('rated note !');
+                        break;
+                    }
+                }
+            }
+        }
+    };
+    ObjectDetailComponent.prototype.userAccess = function () {
+        var cookieExists = this._cookieService.check('login');
+        if (cookieExists === true) {
+            return true;
+        }
+        else {
+            this._router.navigate(['login']);
+            alert('You must be connected !');
+            return false;
+        }
+    };
+    ObjectDetailComponent.prototype.sellerUser = function () {
+        for (var _i = 0, _a = this._objects; _i < _a.length; _i++) {
+            var obj = _a[_i];
+            if (obj.idObject === Number(this._objId)) {
+                this._idSeller = obj.idUser;
+                break;
+            }
+        }
+        for (var _b = 0, _c = this._sellers; _b < _c.length; _b++) {
+            var seller = _c[_b];
+            if (seller.idUser === this._idSeller) {
+                this._seller = seller.username;
+                this._nbSales = seller.nbSales;
+                this._pVotes = seller.positiveVote;
+                this._nVotes = seller.negativeVote;
+                break;
+            }
+        }
+    };
+    ObjectDetailComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-object-detail',
+            template: __webpack_require__(/*! ./object-detail.component.html */ "./src/app/auctioned-object/object-detail/object-detail.component.html"),
+            styles: [__webpack_require__(/*! ./object-detail.component.scss */ "./src/app/auctioned-object/object-detail/object-detail.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], ngx_cookie_service__WEBPACK_IMPORTED_MODULE_4__["CookieService"],
+            _sold_object_sold_object_service__WEBPACK_IMPORTED_MODULE_6__["SoldObjectService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _auctioned_object_service__WEBPACK_IMPORTED_MODULE_3__["AuctionedObjectService"], _member_member_service__WEBPACK_IMPORTED_MODULE_2__["MemberService"], _add_auction_SellerService_seller_service__WEBPACK_IMPORTED_MODULE_5__["SellerService"]])
+    ], ObjectDetailComponent);
+    return ObjectDetailComponent;
 }());
 
 
@@ -382,7 +833,7 @@ var DataService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>{{ user$.name }}</h1>\r\n\r\n<ul>\r\n  <li><strong>wow:</strong> {{ user$.username }}</li>\r\n  <li><strong>Email:</strong> {{ user$.email }}</li>\r\n  <li><strong>Phone:</strong> {{ user$.phone }}</li>\r\n</ul>\r\n"
+module.exports = "<h1>{{ member$.username }}</h1>\r\n\r\n<ul>\r\n  <li><strong>wow:</strong> {{ member$.username }}</li>\r\n  <li><strong>Email:</strong> {{ member$.emailUser }}</li>\r\n  <li><strong>Phone:</strong> {{ member$.userPwd }}</li>\r\n</ul>\r\n"
 
 /***/ }),
 
@@ -408,8 +859,8 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailsComponent", function() { return DetailsComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _member_member_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../member/member.service */ "./src/app/member/member.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -423,15 +874,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var DetailsComponent = /** @class */ (function () {
-    function DetailsComponent(route, data) {
+    function DetailsComponent(route, _memberService) {
         var _this = this;
         this.route = route;
-        this.data = data;
-        this.route.params.subscribe(function (params) { return _this.user$ = params.id; });
+        this._memberService = _memberService;
+        this.route.params.subscribe(function (params) { return _this.member$ = params.id; });
     }
     DetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.data.getUser(this.user$).subscribe(function (data) { return _this.user$ = data; });
+        this._memberService.getMember(this.member$).subscribe(function (data) { return _this.member$ = data; });
     };
     DetailsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -439,7 +890,7 @@ var DetailsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./details.component.html */ "./src/app/details/details.component.html"),
             styles: [__webpack_require__(/*! ./details.component.scss */ "./src/app/details/details.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _member_member_service__WEBPACK_IMPORTED_MODULE_2__["MemberService"]])
     ], DetailsComponent);
     return DetailsComponent;
 }());
@@ -455,7 +906,7 @@ var DetailsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\n  <div class=\"container\">\n    <h1>Login</h1>\n    <hr>\n\n    <label id=\"username\"><b>Username</b></label>\n    <input type=\"text\" placeholder=\"Enter your username\" name=\"username\" required>\n\n    <label id=\"psw\"><b>Password</b></label>\n    <input type=\"password\" placeholder=\"Enter Password\" name=\"psw\" required>\n    <hr>\n\n    <a routerLink=\"posts\" [class.activated]=\"currentUrl == '/posts'\">\n    <button type=\"submit\" class=\"loginBtn\">Login</button>\n    </a>\n\n  </div>\n\n</form>\n"
+module.exports = "<form #form=\"ngForm\" (ngSubmit)=\"onLogin()\">\r\n  <div class=\"container\">\r\n    <h1>Login</h1>\r\n    <hr>\r\n\r\n    <div [hidden]=\"_isHiddenDiv\">\r\n    <label id=\"username\"><b>Username</b></label>\r\n    <input type=\"text\" placeholder=\"Enter your username\" name=\"username\" [(ngModel)]=\"_username\" required>\r\n\r\n    <label id=\"psw\"><b>Password</b></label>\r\n    <input type=\"password\" placeholder=\"Enter Password\" name=\"psw\" [(ngModel)]=\"_pwd\" required>\r\n    <hr>\r\n    </div>\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"_isHiddenPwdUser\">Password or Username incorrect !</div>\r\n\r\n\r\n    <input type=\"submit\" class=\"loginBtn\" [hidden]=\"_isHiddenLogin\"  [disabled]=\"btnEnable\" value=\"Login\"/>\r\n    <input type =\"button\" class=\"loginBtn\" (click)=\"logOut()\" [hidden]=\"_isHiddenLogout\" value=\"Log out\"/>\r\n\r\n  </div>\r\n\r\n</form>\r\n"
 
 /***/ }),
 
@@ -482,6 +933,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _member_member_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../member/member.service */ "./src/app/member/member.service.ts");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -493,13 +946,61 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(router) {
-        var _this = this;
+    function LoginComponent(_memberService, router, _cookieService) {
+        this._memberService = _memberService;
         this.router = router;
-        router.events.subscribe(function (_) { return _this.currentUrl = _.url; });
+        this._cookieService = _cookieService;
+        this.members = [];
+        this._isHiddenPwdUser = true;
+        this._isHiddenLogin = false;
+        this._isHiddenLogout = true;
+        this._isHiddenDiv = false;
     }
     LoginComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._memberService.getMembers()
+            .subscribe(function (data) { return _this.members = data; });
+        this.checkLogin();
+    };
+    //Stock in memory the idUser and userAdmin?
+    LoginComponent.prototype.onLogin = function () {
+        console.log('ENTRE DANS LA METHODE_V3');
+        for (var _i = 0, _a = this.members; _i < _a.length; _i++) {
+            var member = _a[_i];
+            if (this._username.valueOf().toUpperCase() === member.username.valueOf().toUpperCase() && this._pwd.valueOf() === member.userPwd.valueOf()) {
+                this._isHiddenPwdUser = true;
+                this._cookieService.deleteAll();
+                this.router.navigate(['auctioned-object']);
+                this._cookieService.set('login', member.idUser.valueOf());
+                this._cookieService.set('admin', member.userAdmin);
+                this._cookieService.set('username', member.username);
+                break;
+            }
+            else {
+                this._isHiddenPwdUser = false;
+            }
+        }
+    };
+    LoginComponent.prototype.logOut = function () {
+        this._cookieService.deleteAll();
+        this.router.navigate(['']);
+    };
+    LoginComponent.prototype.checkLogin = function () {
+        console.log('CHECK LOGIN');
+        var cookieExists = this._cookieService.check('login');
+        if (cookieExists === true) {
+            this._isHiddenLogin = true;
+            this._isHiddenLogout = false;
+            this._isHiddenDiv = true;
+        }
+        else {
+            this._isHiddenLogin = false;
+            this._isHiddenLogout = true;
+            this._isHiddenDiv = false;
+        }
     };
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -507,7 +1008,7 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/login/login.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_member_member_service__WEBPACK_IMPORTED_MODULE_2__["MemberService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__["CookieService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -516,40 +1017,44 @@ var LoginComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/posts/posts.component.html":
-/*!********************************************!*\
-  !*** ./src/app/posts/posts.component.html ***!
-  \********************************************/
+/***/ "./src/app/member/member-detail/member-detail.component.html":
+/*!*******************************************************************!*\
+  !*** ./src/app/member/member-detail/member-detail.component.html ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Posts</h1>\n\n<ul>\n  <li *ngFor=\"let post of posts$\">\n    <a routerLink=\"\">{{ post.title }}</a>\n\n    <p>{{ post.body }}</p>\n  </li>\n</ul>\n"
+module.exports = "<h1>{{ _member$.username }}</h1>\n\n<ul>\n  <li><strong>Username : </strong> {{ _member$.username }}</li>\n  <li><strong>Email : </strong> {{ _member$.emailUser }}</li>\n  <li><strong>Password : </strong> {{ _member$.userPwd }}</li>\n  <li><strong>Admin ? : </strong>{{_member$.userAdmin}}</li>\n <a routerLink=\"../../member\" [class.activated]=\"currentUrl == '/member'\">\n   <button class=\"btn btn-secondary btn-lg active\" (click)=\"deleteMember()\">Delete</button>\n </a>\n\n  <button class=\"btn btn-secondary btn-lg active\"  (click)=\"upgradeModo()\">Upgrade Moderator</button>\n  <button class=\"btn btn-secondary btn-lg active\"  (click)=\"deleteModo()\">Delete Moderator</button>\n\n</ul>\n"
 
 /***/ }),
 
-/***/ "./src/app/posts/posts.component.scss":
-/*!********************************************!*\
-  !*** ./src/app/posts/posts.component.scss ***!
-  \********************************************/
+/***/ "./src/app/member/member-detail/member-detail.component.scss":
+/*!*******************************************************************!*\
+  !*** ./src/app/member/member-detail/member-detail.component.scss ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Bvc3RzL3Bvc3RzLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21lbWJlci9tZW1iZXItZGV0YWlsL21lbWJlci1kZXRhaWwuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
-/***/ "./src/app/posts/posts.component.ts":
-/*!******************************************!*\
-  !*** ./src/app/posts/posts.component.ts ***!
-  \******************************************/
-/*! exports provided: PostsComponent */
+/***/ "./src/app/member/member-detail/member-detail.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/member/member-detail/member-detail.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: MemberDetailComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PostsComponent", function() { return PostsComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemberDetailComponent", function() { return MemberDetailComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _member_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../member.service */ "./src/app/member/member.service.ts");
+/* harmony import */ var _moderator_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../moderator.service */ "./src/app/member/moderator.service.ts");
+/* harmony import */ var _add_auction_SellerService_seller_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../add-auction/SellerService/seller.service */ "./src/app/add-auction/SellerService/seller.service.ts");
+/* harmony import */ var _auctioned_object_auctioned_object_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../auctioned-object/auctioned-object.service */ "./src/app/auctioned-object/auctioned-object.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -561,23 +1066,308 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-var PostsComponent = /** @class */ (function () {
-    function PostsComponent(data) {
-        this.data = data;
-    }
-    PostsComponent.prototype.ngOnInit = function () {
+
+
+
+
+var MemberDetailComponent = /** @class */ (function () {
+    function MemberDetailComponent(route, _memberService, _objectService, _moderatorService, router, _sellerService) {
         var _this = this;
-        this.data.getPosts().subscribe(function (data) { return _this.posts$ = data; });
+        this.route = route;
+        this._memberService = _memberService;
+        this._objectService = _objectService;
+        this._moderatorService = _moderatorService;
+        this.router = router;
+        this._sellerService = _sellerService;
+        this._moderators = [];
+        this._up = false;
+        this._del = false;
+        this._sellers = [];
+        this._objects = [];
+        this.route.params.subscribe(function (params) { return _this._member$ = params.id; });
+    }
+    MemberDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._id$ = this._member$;
+        this._idUser = Number(this._id$);
+        this._moderatorService.getModerators()
+            .subscribe(function (data) { return _this._moderators = data; });
+        this._memberService.getMember(this._member$).subscribe(function (data) { return _this._member$ = data; });
+        this._sellerService.getSellers().subscribe(function (data) { return _this._sellers = data; });
+        this._objectService.getObjects().subscribe(function (data) { return _this._objects = data; });
     };
-    PostsComponent = __decorate([
+    MemberDetailComponent.prototype.upgradeModo = function () {
+        for (var _i = 0, _a = this._moderators; _i < _a.length; _i++) {
+            var modo = _a[_i];
+            console.log('ADD ***********');
+            console.log('idUser : ' + this._idUser + '   id modo : ' + modo.idUser);
+            console.log('***********');
+            if (this._idUser === modo.idUser) {
+                this._idModo$ = modo.idModerator;
+                this._up = true;
+                alert('Already Moderator !');
+                break;
+            }
+        }
+        if (this._up === false) {
+            this._moderatorService.addModo(this._id$).subscribe();
+            this.router.navigate(['member']);
+            alert('Action performed !');
+        }
+    };
+    MemberDetailComponent.prototype.deleteModo = function () {
+        for (var _i = 0, _a = this._moderators; _i < _a.length; _i++) {
+            var modo = _a[_i];
+            console.log('DELETE ***********');
+            console.log('idUser : ' + this._idUser + '   id modo : ' + modo.idUser);
+            console.log('***********');
+            if (this._idUser === modo.idUser) {
+                this._idModo$ = modo.idModerator;
+                this._del = true;
+                console.log('IDMODO_V2 / ' + this._idModo$);
+                this._moderatorService.deleteModerator(this._idModo$).subscribe();
+                this.router.navigate(['member']);
+                alert('Action performed !');
+                break;
+            }
+        }
+        if (this._del === false) {
+            alert('The member is not a moderator !');
+        }
+    };
+    MemberDetailComponent.prototype.deleteMember = function () {
+        //DELETE MEMBER
+        this._memberService.deleteMember(this._id$).subscribe();
+        //DELETE MODERATOR
+        for (var _i = 0, _a = this._moderators; _i < _a.length; _i++) {
+            var modo = _a[_i];
+            if (this._idUser === modo.idUser) {
+                this._idModo$ = modo.idModerator;
+                this._moderatorService.deleteModerator(this._idModo$).subscribe();
+                break;
+            }
+        }
+        //DELETE SELLER USER
+        for (var _b = 0, _c = this._sellers; _b < _c.length; _b++) {
+            var seller = _c[_b];
+            if (seller.idUser === this._idUser) {
+                this._sellerService.deleteSeller(seller.idSeller).subscribe();
+                break;
+            }
+        }
+        //DELETE SELLER OBJECTS
+        for (var _d = 0, _e = this._objects; _d < _e.length; _d++) {
+            var obj = _e[_d];
+            if (obj.idUser === this._idUser) {
+                this._objectService.deleteObject(obj.idObject).subscribe();
+            }
+        }
+        this.router.navigate(['member']);
+        alert('Action performed !');
+    };
+    MemberDetailComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-posts',
-            template: __webpack_require__(/*! ./posts.component.html */ "./src/app/posts/posts.component.html"),
-            styles: [__webpack_require__(/*! ./posts.component.scss */ "./src/app/posts/posts.component.scss")]
+            selector: 'app-member-detail',
+            template: __webpack_require__(/*! ./member-detail.component.html */ "./src/app/member/member-detail/member-detail.component.html"),
+            styles: [__webpack_require__(/*! ./member-detail.component.scss */ "./src/app/member/member-detail/member-detail.component.scss")]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"]])
-    ], PostsComponent);
-    return PostsComponent;
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], _member_service__WEBPACK_IMPORTED_MODULE_2__["MemberService"], _auctioned_object_auctioned_object_service__WEBPACK_IMPORTED_MODULE_5__["AuctionedObjectService"],
+            _moderator_service__WEBPACK_IMPORTED_MODULE_3__["ModeratorService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _add_auction_SellerService_seller_service__WEBPACK_IMPORTED_MODULE_4__["SellerService"]])
+    ], MemberDetailComponent);
+    return MemberDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/member/member.component.html":
+/*!**********************************************!*\
+  !*** ./src/app/member/member.component.html ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2>Members list</h2>\r\n\r\n<ul [@listStagger]=\"members\">\r\n  <li *ngFor=\"let member of members\">\r\n    <a routerLink=\"/member-detail/{{member.idUser}}\">{{ member.username }}</a>\r\n\r\n    <ul>\r\n      <li>{{ member.emailUser }}</li>\r\n    </ul>\r\n  </li>\r\n</ul>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/member/member.component.scss":
+/*!**********************************************!*\
+  !*** ./src/app/member/member.component.scss ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21lbWJlci9tZW1iZXIuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/member/member.component.ts":
+/*!********************************************!*\
+  !*** ./src/app/member/member.component.ts ***!
+  \********************************************/
+/*! exports provided: MemberComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemberComponent", function() { return MemberComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _member_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./member.service */ "./src/app/member/member.service.ts");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var MemberComponent = /** @class */ (function () {
+    function MemberComponent(_memberService) {
+        this._memberService = _memberService;
+        this.members = [];
+    }
+    MemberComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._memberService.getMembers()
+            .subscribe(function (data) { return _this.members = data; });
+    };
+    MemberComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-member',
+            template: __webpack_require__(/*! ./member.component.html */ "./src/app/member/member.component.html"),
+            styles: [__webpack_require__(/*! ./member.component.scss */ "./src/app/member/member.component.scss")],
+            animations: [
+                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["trigger"])('listStagger', [
+                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["transition"])('* <=> *', [
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["query"])(':enter', [
+                            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 0, transform: 'translateY(-15px)' }),
+                            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["stagger"])('50ms', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["animate"])('550ms ease-out', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 1, transform: 'translateY(0px)' })))
+                        ], { optional: true }),
+                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["query"])(':leave', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["animate"])('50ms', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({ opacity: 0 })), {
+                            optional: true
+                        })
+                    ])
+                ])
+            ]
+        }),
+        __metadata("design:paramtypes", [_member_service__WEBPACK_IMPORTED_MODULE_1__["MemberService"]])
+    ], MemberComponent);
+    return MemberComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/member/member.service.ts":
+/*!******************************************!*\
+  !*** ./src/app/member/member.service.ts ***!
+  \******************************************/
+/*! exports provided: MemberService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemberService", function() { return MemberService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var MemberService = /** @class */ (function () {
+    function MemberService(http) {
+        this.http = http;
+    }
+    MemberService.prototype.getMembers = function () {
+        return this.http.get('http://localhost:50867/api/Member');
+    };
+    MemberService.prototype.getMember = function (memberId) {
+        return this.http.get('http://localhost:50867/api/Member/' + memberId);
+    };
+    MemberService.prototype.deleteMember = function (memberId) {
+        return this.http.delete('http://localhost:50867/api/Member/' + memberId);
+    };
+    MemberService.prototype.addMember = function (email, user, pwd) {
+        return this.http.post('http://localhost:50867/api/Member/', {
+            'emailUser': email,
+            'username': user,
+            'userPwd': pwd,
+            'userAdmin': 0
+        });
+    };
+    MemberService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], MemberService);
+    return MemberService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/member/moderator.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/member/moderator.service.ts ***!
+  \*********************************************/
+/*! exports provided: ModeratorService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModeratorService", function() { return ModeratorService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ModeratorService = /** @class */ (function () {
+    function ModeratorService(http) {
+        this.http = http;
+    }
+    ModeratorService.prototype.addModo = function (memberId) {
+        return this.http.post('http://localhost:50867/api/moderator/', {
+            'idUser': memberId
+        });
+    };
+    ModeratorService.prototype.deleteModerator = function (memberId) {
+        return this.http.delete('http://localhost:50867/api/moderator/' + memberId);
+    };
+    ModeratorService.prototype.getModerators = function () {
+        return this.http.get('http://localhost:50867/api/moderator');
+    };
+    ModeratorService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], ModeratorService);
+    return ModeratorService;
 }());
 
 
@@ -591,7 +1381,7 @@ var PostsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav>\r\n  <ul>\r\n\r\n    <li>\r\n      <a routerLink=\"\" [class.activated]=\"currentUrl == '/'\">\r\n        <i class=\"material-icons\">vpn_key</i>\r\n      </a>\r\n    </li>\r\n\r\n    <li>\r\n      <a routerLink=\"posts\" [class.activated]=\"currentUrl == '/posts'\">\r\n        <i class=\"material-icons\">import_contacts</i>\r\n      </a>\r\n    </li>\r\n\r\n    <li>\r\n      <a routerLink=\"users\" [class.activated]=\"currentUrl == '/users'\">\r\n        <i class=\"material-icons\">contacts</i>\r\n      </a>\r\n    </li>\r\n\r\n    <li>\r\n      <a routerLink=\"add-auction\" [class.activated]=\"currentUrl == '/add-auction'\">\r\n        <i class=\"material-icons\">add_circle</i>\r\n      </a>\r\n    </li>\r\n\r\n  </ul>\r\n</nav>\r\n"
+module.exports = "<nav>\r\n  <ul>\r\n\r\n    <li routerLink=\"login\" [class.activated]=\"currentUrl == '/login'\" >\r\n      <a>\r\n        <i class=\"material-icons\">person</i>\r\n      </a>\r\n    </li>\r\n\r\n\r\n\r\n    <li>\r\n      <a routerLink=\"\" [class.activated]=\"currentUrl == '/'\">\r\n        <i class=\"material-icons\">person_add</i>\r\n      </a>\r\n    </li>\r\n\r\n    <li>\r\n      <a routerLink=\"auctioned-object\" [class.activated]=\"_currentUrl == '/auctioned-object'\">\r\n        <i class=\"material-icons\">import_contacts</i>\r\n      </a>\r\n    </li>\r\n\r\n    <li (click)=\"adminAccess()\">\r\n      <a>\r\n        <i class=\"material-icons\">supervisor_account</i>\r\n      </a>\r\n    </li>\r\n\r\n    <li (click)=\"userAccess()\">\r\n      <a>\r\n        <i class=\"material-icons\">add_circle</i>\r\n      </a>\r\n    </li>\r\n\r\n    <li routerLink=\"soldObject\" [class.activated]=\"_currentUrl == '/soldObject'\">\r\n      <a>\r\n        <i class=\"material-icons\">poll</i>\r\n      </a>\r\n    </li>\r\n\r\n  </ul>\r\n</nav>\r\n"
 
 /***/ }),
 
@@ -618,6 +1408,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidebarComponent", function() { return SidebarComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var _member_member_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../member/member.service */ "./src/app/member/member.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -629,20 +1421,51 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var SidebarComponent = /** @class */ (function () {
-    function SidebarComponent(router) {
+    function SidebarComponent(router, _cookieService, _memberService) {
         var _this = this;
         this.router = router;
-        router.events.subscribe(function (_) { return _this.currentUrl = _.url; });
+        this._cookieService = _cookieService;
+        this._memberService = _memberService;
+        this._isHiddenPwdUser = true;
+        router.events.subscribe(function (_) { return _this._currentUrl = _.url; });
     }
     SidebarComponent.prototype.ngOnInit = function () { };
+    SidebarComponent.prototype.adminAccess = function () {
+        var cookieExists = this._cookieService.check('login');
+        if (cookieExists === true) {
+            this.admin = this._memberService.getMember(this._cookieService.get('login'));
+            if (this._cookieService.get('admin') === '1') {
+                this.router.navigate(['member']);
+            }
+            else {
+                alert('Denied access');
+            }
+        }
+        else {
+            alert('Denied access');
+        }
+    };
+    SidebarComponent.prototype.userAccess = function () {
+        var cookieExists = this._cookieService.check('login');
+        if (cookieExists === true) {
+            this.router.navigate(['add-auction']);
+        }
+        else {
+            this.router.navigate(['login']);
+            alert('You must be connected !');
+        }
+    };
     SidebarComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-sidebar',
             template: __webpack_require__(/*! ./sidebar.component.html */ "./src/app/sidebar/sidebar.component.html"),
             styles: [__webpack_require__(/*! ./sidebar.component.scss */ "./src/app/sidebar/sidebar.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], ngx_cookie_service__WEBPACK_IMPORTED_MODULE_2__["CookieService"],
+            _member_member_service__WEBPACK_IMPORTED_MODULE_3__["MemberService"]])
     ], SidebarComponent);
     return SidebarComponent;
 }());
@@ -658,7 +1481,7 @@ var SidebarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n  <div class=\"container\">\r\n    <h1>Register</h1>\r\n    <p>Please fill in this form to create an account.</p>\r\n    <hr>\r\n\r\n    <label id=\"email\"><b>Email</b></label>\r\n    <input type=\"text\" class=\"form-control\" placeholder=\"Enter Email\" name=\"email\" [(ngModel)]=\"_email\" (keydown.enter)=\"onChangeEmail()\" (keydown.Tab)=\"onChangeEmail()\" (focusout)=\"onChangeEmail()\">\r\n    <div class=\"alert alert-danger\" [hidden]=\"isHiddenEmail\">Enter a valid email</div>\r\n\r\n\r\n    <label id=\"username\"><b>Username</b></label>\r\n    <input type=\"text\" placeholder=\"Enter your username\" name=\"username\" required>\r\n\r\n    <label id=\"psw\"><b>Password</b></label>\r\n    <input type=\"password\" class=\"form-control\" [(ngModel)]=\"_pwd\"\r\n           placeholder=\"Enter Password\"\r\n           name=\"psw\" required>\r\n\r\n\r\n    <label id=\"psw-repeat\"><b>Repeat Password</b></label>\r\n    <input id=\"cfP\" type=\"password\" class=\"form-control\" [(ngModel)]=\"_cfPwd\" (keydown.enter)=\"onChangePassword()\" (keydown.Tab)=\"onChangePassword()\" (focusout)=\"onChangePassword()\" placeholder=\"Repeat Password\"\r\n           name=\"psw-repeat\"\r\n           required>\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"isHiddenBothPassword\">Ensure both passwords match</div>\r\n\r\n    <hr>\r\n\r\n    <a routerLink=\"posts\" [class.activated]=\"currentUrl == '/posts'\">\r\n      <button id=\"rBtn\" type=\"submit\" class=\"registerbtn\" [disabled]=\"!btnEnable\">Register</button>\r\n\r\n    </a>\r\n  </div>\r\n\r\n  <div class=\"container signin\">\r\n    <p>Already have an account? <a href=\"#\" routerLink=\"login\" [class.activated]=\"currentUrl == '/login'\">Sign in</a>.</p>\r\n  </div>\r\n\r\n</form>\r\n"
+module.exports = "<form #form=\"ngForm\" (ngSubmit)=\"signUp()\">\r\n  <div class=\"container\">\r\n    <h1>Register</h1>\r\n    <p>Please fill in this form to create an account.</p>\r\n    <hr>\r\n\r\n    <label id=\"email\"><b>Email</b></label>\r\n    <input type=\"text\" class=\"form-control\" placeholder=\"Enter Email\" name=\"email\" [(ngModel)]=\"_email\" (keydown.enter)=\"onChangeEmail()\" (keydown.Tab)=\"onChangeEmail()\" (focusout)=\"onChangeEmail()\">\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"_isHiddenEmail\">Enter a valid email</div>\r\n\r\n\r\n    <label id=\"username\"><b>Username</b></label>\r\n    <input type=\"text\" placeholder=\"Enter your username\" [(ngModel)]=\"_username\" (keydown.enter)=\"onChangeUsername()\" (keydown.Tab)=\"onChangeUsername()\" (focusout)=\"onChangeUsername()\" name=\"username\" required>\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"_isHiddenUsername\">Already exist !</div>\r\n\r\n    <label id=\"psw\"><b>Password</b></label>\r\n    <input type=\"password\" class=\"form-control\" [(ngModel)]=\"_pwd\"\r\n           placeholder=\"Enter Password\"\r\n           name=\"psw\" required>\r\n\r\n\r\n    <label id=\"psw-repeat\"><b>Repeat Password</b></label>\r\n    <input id=\"cfP\" type=\"password\" class=\"form-control\" [(ngModel)]=\"_cfPwd\" (keydown.enter)=\"onChangePassword()\" (keydown.Tab)=\"onChangePassword()\" (focusout)=\"onChangePassword()\" placeholder=\"Repeat Password\"\r\n           name=\"psw-repeat\"\r\n           required>\r\n\r\n    <div class=\"alert alert-danger\" [hidden]=\"_isHiddenBothPassword\">Ensure both passwords match</div>\r\n\r\n    <hr>\r\n\r\n      <button id=\"rBtn\" type=\"submit\" class=\"registerbtn\" >Register</button>\r\n\r\n  </div>\r\n\r\n  <div class=\"container signin\">\r\n    <p>Already have an account? <a href=\"#\" routerLink=\"login\" [class.activated]=\"currentUrl == '/login'\">Sign in</a>.</p>\r\n  </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -684,6 +1507,8 @@ module.exports = "* {\n  box-sizing: border-box; }\n\n/* Add padding to containe
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignUpComponent", function() { return SignUpComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _member_member_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../member/member.service */ "./src/app/member/member.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -694,33 +1519,101 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var SignUpComponent = /** @class */ (function () {
-    function SignUpComponent() {
+    function SignUpComponent(_memberService, _router) {
+        this._memberService = _memberService;
+        this._router = _router;
+        this.members = [];
+        this._verifyUsername = false;
+        this.emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
         // btnEnable = false;
-        this._isHidden = true;
-        this.apiValues = [];
+        this._isHiddenBothPassword = true;
+        this._isHiddenUsername = true;
+        this._isHiddenEmail = true;
     }
     SignUpComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._memberService.getMembers()
+            .subscribe(function (data) { return _this.members = data; });
     };
-    SignUpComponent.prototype.onSubmit = function () {
-        alert('Incroyable');
-        // this.onChange();
+    // Verify the username
+    SignUpComponent.prototype.onChangeUsername = function () {
+        for (var _i = 0, _a = this.members; _i < _a.length; _i++) {
+            var member = _a[_i];
+            if (this._username.valueOf().toUpperCase() === member.username.valueOf().toUpperCase()) {
+                this._isHiddenUsername = false;
+                this._verifyUsername = true;
+                return true;
+                break;
+            }
+        }
+        if (this._verifyUsername === false) {
+            this._isHiddenUsername = true;
+            return false;
+        }
     };
-    SignUpComponent.prototype.onChange = function () {
-        if (this.cfPwd === this.pwd) {
-            this.btnEnable = true;
-            console.log(this.cfPwd + ' , ' + this.pwd);
-            this._isHidden = true;
+    // ADD Member
+    SignUpComponent.prototype.signUp = function () {
+        if (this.onChangeUsername() === false && this.onChangePassword() === true && this.onChangeEmail() === true) {
+            this._memberService.addMember(this._email, this._username, this._pwd).subscribe();
+            this._router.navigate(['login']);
+            alert('successful register !');
+        }
+    };
+    //Verify the password
+    SignUpComponent.prototype.onChangePassword = function () {
+        if (this._cfPwd === this._pwd) {
+            this._isHiddenBothPassword = true;
+            return true;
         }
         else {
-            // alert('Ensure both passwords match');
-            this._isHidden = false;
-            this.btnEnable = false;
+            this._isHiddenBothPassword = false;
+            return false;
         }
     };
-    Object.defineProperty(SignUpComponent.prototype, "isHidden", {
+    SignUpComponent.prototype.onChangeEmail = function () {
+        if (this._email === '') {
+            this._isHiddenEmail = false;
+            return false;
+        }
+        else {
+            this._isHiddenEmail = true;
+            return true;
+        }
+    };
+    Object.defineProperty(SignUpComponent.prototype, "pwd", {
         get: function () {
-            return this._isHidden;
+            return this._pwd;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SignUpComponent.prototype, "cfPwd", {
+        get: function () {
+            return this._pwd;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SignUpComponent.prototype, "isHiddenBothPassword", {
+        get: function () {
+            return this._isHiddenBothPassword;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SignUpComponent.prototype, "isHiddenEmail", {
+        get: function () {
+            return this._isHiddenEmail;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SignUpComponent.prototype, "email", {
+        get: function () {
+            return this._email;
         },
         enumerable: true,
         configurable: true
@@ -731,7 +1624,7 @@ var SignUpComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./sign-up.component.html */ "./src/app/sign-up/sign-up.component.html"),
             styles: [__webpack_require__(/*! ./sign-up.component.scss */ "./src/app/sign-up/sign-up.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_member_member_service__WEBPACK_IMPORTED_MODULE_1__["MemberService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], SignUpComponent);
     return SignUpComponent;
 }());
@@ -740,40 +1633,40 @@ var SignUpComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/users/users.component.html":
-/*!********************************************!*\
-  !*** ./src/app/users/users.component.html ***!
-  \********************************************/
+/***/ "./src/app/sold-object/sold-object.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/sold-object/sold-object.component.html ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Users</h1>\n\n<ul [@listStagger]=\"users$\">\n  <li *ngFor=\"let user of users$\">\n    <a routerLink=\"/details/{{user.id}}\">{{ user.name }}</a>\n\n    <ul>\n      <li>{{ user.email }}</li>\n      <li><a href=\"http://{{ user.website }}\">{{ user.website }}</a></li>\n    </ul>\n  </li>\n</ul>\n"
+module.exports = "<h2>List of objects sold</h2>\n\n<ul [@listStagger]=\"_objects\">\n  <li *ngFor=\"let obj of _objects\">\n    <a> {{obj.nameObject}}</a>\n    <ul>\n      <li>{{ obj.finalPrice }} €</li>\n      <li>{{ obj.catObject }}</li>\n    </ul>\n  </li>\n</ul>\n"
 
 /***/ }),
 
-/***/ "./src/app/users/users.component.scss":
-/*!********************************************!*\
-  !*** ./src/app/users/users.component.scss ***!
-  \********************************************/
+/***/ "./src/app/sold-object/sold-object.component.scss":
+/*!********************************************************!*\
+  !*** ./src/app/sold-object/sold-object.component.scss ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3VzZXJzL3VzZXJzLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvbGQtb2JqZWN0L3NvbGQtb2JqZWN0LmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
-/***/ "./src/app/users/users.component.ts":
-/*!******************************************!*\
-  !*** ./src/app/users/users.component.ts ***!
-  \******************************************/
-/*! exports provided: UsersComponent */
+/***/ "./src/app/sold-object/sold-object.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/sold-object/sold-object.component.ts ***!
+  \******************************************************/
+/*! exports provided: SoldObjectComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersComponent", function() { return UsersComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SoldObjectComponent", function() { return SoldObjectComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
+/* harmony import */ var _sold_object_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sold-object.service */ "./src/app/sold-object/sold-object.service.ts");
 /* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -787,19 +1680,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var UsersComponent = /** @class */ (function () {
-    function UsersComponent(data) {
-        this.data = data;
+var SoldObjectComponent = /** @class */ (function () {
+    function SoldObjectComponent(_soldObjectService) {
+        this._soldObjectService = _soldObjectService;
+        this._objects = [];
     }
-    UsersComponent.prototype.ngOnInit = function () {
+    SoldObjectComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.data.getUsers().subscribe(function (data) { return _this.users$ = data; });
+        this._soldObjectService.getSoldObjects()
+            .subscribe(function (data) { return _this._objects = data; });
+        console.log('WTF');
     };
-    UsersComponent = __decorate([
+    SoldObjectComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-users',
-            template: __webpack_require__(/*! ./users.component.html */ "./src/app/users/users.component.html"),
-            styles: [__webpack_require__(/*! ./users.component.scss */ "./src/app/users/users.component.scss")],
+            selector: 'app-sold-object',
+            template: __webpack_require__(/*! ./sold-object.component.html */ "./src/app/sold-object/sold-object.component.html"),
+            styles: [__webpack_require__(/*! ./sold-object.component.scss */ "./src/app/sold-object/sold-object.component.scss")],
             animations: [
                 Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["trigger"])('listStagger', [
                     Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["transition"])('* <=> *', [
@@ -814,9 +1710,65 @@ var UsersComponent = /** @class */ (function () {
                 ])
             ]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"]])
-    ], UsersComponent);
-    return UsersComponent;
+        __metadata("design:paramtypes", [_sold_object_service__WEBPACK_IMPORTED_MODULE_1__["SoldObjectService"]])
+    ], SoldObjectComponent);
+    return SoldObjectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/sold-object/sold-object.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/sold-object/sold-object.service.ts ***!
+  \****************************************************/
+/*! exports provided: SoldObjectService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SoldObjectService", function() { return SoldObjectService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var SoldObjectService = /** @class */ (function () {
+    function SoldObjectService(http) {
+        this.http = http;
+    }
+    SoldObjectService.prototype.getSoldObjects = function () {
+        return this.http.get('http://localhost:50867/api/sold_object');
+    };
+    SoldObjectService.prototype.getSoldObject = function (objId) {
+        return this.http.get('http://localhost:50867/api/sold_object/' + objId);
+    };
+    SoldObjectService.prototype.deleteSoldObject = function (objId) {
+        return this.http.delete('http://localhost:50867/api/sold_object/' + objId);
+    };
+    SoldObjectService.prototype.addSoldObject = function (price, name, cat) {
+        return this.http.post('http://localhost:50867/api/sold_object/', {
+            'finalPrice': price,
+            'nameObject': name,
+            'catObject': cat
+        });
+    };
+    SoldObjectService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], SoldObjectService);
+    return SoldObjectService;
 }());
 
 

@@ -18,13 +18,13 @@ namespace GroupeA07.DAO
 		public static readonly string QUERY = "Select * from " + TABLE_NAME;
 		public static readonly string GET = QUERY + " where " + COLUMN_ID_OBJECT + " =@idSeller";
 
-		public static readonly string INSERT = "Insert into" + TABLE_NAME +
+		public static readonly string INSERT = "Insert into " + TABLE_NAME +
 			"(" + COLUMN_FINAL_PRICE +
 			", " + COLUMN_NAME_OBJECT +
 			", " + COLUMN_CAT_OBJECT + ")"
-			+ "output inserted.id values(@idObject,0)";
+			+ "output inserted.idObject values(@finalPrice,@nameObject,@catObject)";
 
-		public static readonly string UPDATE = "update" + TABLE_NAME + " set "
+		public static readonly string UPDATE = "update " + TABLE_NAME + " set "
 			+ COLUMN_FINAL_PRICE + " =@finalPrice"
 			+ ", " + COLUMN_NAME_OBJECT + "=@nameObject"
 			+ ", " + COLUMN_CAT_OBJECT + " =@catObject";
@@ -35,7 +35,7 @@ namespace GroupeA07.DAO
 			+ " where " + COLUMN_ID_OBJECT + " =@idObject";
 
 
-		//Renvoie liste des Objects
+		//get object list
 		public static List<Sold_object> Query()
 		{
 			List<Sold_object> objects = new List<Sold_object>();
@@ -54,7 +54,7 @@ namespace GroupeA07.DAO
 			return objects;
 		}
 
-		//Renvoie un membre selon son id
+		//Get with id
 		public static Sold_object Get(int id)
 		{
 			Sold_object m = null;
@@ -72,7 +72,7 @@ namespace GroupeA07.DAO
 			return m;
 		}
 
-		//Ajout d'un membre
+		//Add sold_object
 		public static Sold_object Insert(Sold_object todo)
 		{
 			using (SqlConnection connection = DataBase.GetConnection())
@@ -81,6 +81,8 @@ namespace GroupeA07.DAO
 				SqlCommand command = new SqlCommand(INSERT, connection);
 
 				command.Parameters.AddWithValue("@finalPrice", todo.finalPrice);
+				command.Parameters.AddWithValue("@nameObject", todo.nameObject);
+				command.Parameters.AddWithValue("@catObject", todo.catObject);
 
 				int id = Int32.Parse(command.ExecuteScalar().ToString());
 				todo.idObject = id;
@@ -95,7 +97,7 @@ namespace GroupeA07.DAO
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
-				SqlCommand command = new SqlCommand(INSERT, connection);
+				SqlCommand command = new SqlCommand(DELETE, connection);
 
 				command.Parameters.AddWithValue("@idObject", id);
 
@@ -112,7 +114,6 @@ namespace GroupeA07.DAO
 				connection.Open();
 				SqlCommand command = new SqlCommand(UPDATE, connection);
 
-				command.Parameters.AddWithValue("@idObject", todo.idObject);
 				command.Parameters.AddWithValue("@finalPrice", todo.finalPrice);
 				command.Parameters.AddWithValue("@nameObject", todo.nameObject);
 				command.Parameters.AddWithValue("@catObject", todo.catObject);

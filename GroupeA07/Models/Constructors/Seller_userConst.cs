@@ -16,9 +16,11 @@ namespace GroupeA07.Models
 			idSeller = Int32.Parse(reader[Seller_userDAO.COLUMN_ID_SELLER].ToString());
 			username = reader[Seller_userDAO.COLUMN_USERNAME].ToString();
 
-			nbSales = Int32.Parse(reader[Seller_userDAO.COLUMN_NB_SALES].ToString()); idSeller = Int32.Parse(reader[Seller_userDAO.COLUMN_ID_SELLER].ToString());
+			nbSales = Int32.Parse(reader[Seller_userDAO.COLUMN_NB_SALES].ToString());
 			positiveVote = Int32.Parse(reader[Seller_userDAO.COLUMN_POSITIVE_VOTE].ToString());
+
 			negativeVote = Int32.Parse(reader[Seller_userDAO.COLUMN_NEGATIVE_VOTE].ToString());
+			idUser = Int32.Parse(reader[Seller_userDAO.COLUMN_ID_USER].ToString());
 		}
 	}
 }

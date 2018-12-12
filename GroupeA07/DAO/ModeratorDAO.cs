@@ -9,7 +9,7 @@ namespace GroupeA07.DAO
 {
 	public class ModeratorDAO
 	{
-		public static readonly string TABLE_NAME = "Auctioned_Object";
+		public static readonly string TABLE_NAME = "Moderator";
 		public static readonly string COLUMN_ID_MODERATOR = "idModerator";
 		public static readonly string COLUMN_ID_USER = "idUser";
 		
@@ -17,20 +17,20 @@ namespace GroupeA07.DAO
 		public static readonly string QUERY = "Select * from " + TABLE_NAME;
 		public static readonly string GET = QUERY + " where " + COLUMN_ID_USER + " =@idModerator";
 
-		public static readonly string INSERT = "Insert into" + TABLE_NAME +
+		public static readonly string INSERT = "Insert into " + TABLE_NAME +
 			"(" + COLUMN_ID_USER + ")"
-			+ "output inserted.id values(@idUser,0)";
+			+ "output inserted.idModerator values(@idUser)";
 
-		public static readonly string UPDATE = "update" + TABLE_NAME + " set " +
+		public static readonly string UPDATE = "update " + TABLE_NAME + " set " +
 			COLUMN_ID_USER + " =@isUser";
 
 
 
 		public static readonly string DELETE = "delete from " + TABLE_NAME
-			+ " where " + COLUMN_ID_MODERATOR + " =@isModerator";
+			+ " where " + COLUMN_ID_MODERATOR + " =@idModerator";
 
 
-		//Renvoie liste des Objects
+		//Return moderator list
 		public static List<Moderator> Query()
 		{
 			List<Moderator> objects = new List<Moderator>();
@@ -49,7 +49,7 @@ namespace GroupeA07.DAO
 			return objects;
 		}
 
-		//Renvoie un membre selon son id
+		//Return moderator thanks to id
 		public static Moderator Get(int id)
 		{
 			Moderator m = null;
@@ -67,7 +67,7 @@ namespace GroupeA07.DAO
 			return m;
 		}
 
-		//Ajout d'un membre
+		//ADD Moderator
 		public static Moderator Insert(Moderator todo)
 		{
 			using (SqlConnection connection = DataBase.GetConnection())
@@ -90,7 +90,7 @@ namespace GroupeA07.DAO
 			using (SqlConnection connection = DataBase.GetConnection())
 			{
 				connection.Open();
-				SqlCommand command = new SqlCommand(INSERT, connection);
+				SqlCommand command = new SqlCommand(DELETE, connection);
 
 				command.Parameters.AddWithValue("@idModerator", id);
 
@@ -107,7 +107,6 @@ namespace GroupeA07.DAO
 				connection.Open();
 				SqlCommand command = new SqlCommand(UPDATE, connection);
 
-				command.Parameters.AddWithValue("@idModerator", todo.idModerator);
 				command.Parameters.AddWithValue("@idUser", todo.idUser);
 				state = command.ExecuteNonQuery() != 0;
 			}

@@ -25,8 +25,7 @@ namespace GroupeA07.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Moderator> Auctioned_object { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Auctioned_object> Auctioned_object { get; set; }
         public virtual DbSet<Member> Member { get; set; }
         public virtual DbSet<Moderator> Moderator { get; set; }
         public virtual DbSet<Seller_user> Seller_user { get; set; }

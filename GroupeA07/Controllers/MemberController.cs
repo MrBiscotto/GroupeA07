@@ -23,7 +23,8 @@ namespace GroupeA07.Controllers
 			return MemberDAO.Get(id);
 		}
 
-		public IHttpActionResult Delete(int id)
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
 		{
 			if (MemberDAO.Delete(id))
 			{
